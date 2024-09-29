@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Index</title>
+</head>
+<body>
+    <a href="login.html">To Login</a><br>
+    <a href="register.html">To Register</a>
+
+    <!--Cifrul lui Ceasar-->
+    <div style="padding: 20px;">
+        <h1>Algoritmul de criptare Caesar Cipher în C++</h1>
+
+        <p>Acest cod C++ implementează un simplu cifru Caesar pentru criptare și decriptare a textului.</p>
+
+        <h2>Codul C++:</h2>
+        <button class="accordion">Cifrul lui Ceasar</button>
+    <div class="panel">
+    <pre><code>
+    <span class="keyword">#include</span> &lt;iostream&gt;
+    <span class="keyword">#include</span> &lt;string&gt;
+    
+    <span class="keyword">using namespace</span> std;
+    
+    <span class="comment">// Funcție pentru criptare</span>
+    <span class="keyword">string</span> <span class="function">encrypt</span>(<span class="keyword">string</span> text, <span class="keyword">int</span> shift) {
+        <span class="keyword">string</span> result = <span class="string">""</span>;
+    
+        <span class="comment">// Parcugem fiecare caracter din text</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; text.length(); i++) {
+            <span class="comment">// Criptăm doar literele mari și mici</span>
+            <span class="keyword">if</span> (isupper(text[i])) {
+                <span class="comment">// Pentru litere mari (A-Z)</span>
+                result += <span class="keyword">char</span>(<span class="keyword">int</span>(text[i] + shift - <span class="number">65</span>) % <span class="number">26</span> + <span class="number">65</span>);
+            }
+            <span class="keyword">else if</span> (islower(text[i])) {
+                <span class="comment">// Pentru litere mici (a-z)</span>
+                result += <span class="keyword">char</span>(<span class="keyword">int</span>(text[i] + shift - <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>);
+            }
+            <span class="keyword">else</span> {
+                <span class="comment">// Orice alt caracter rămâne neschimbat</span>
+                result += text[i];
+            }
+        }
+        <span class="keyword">return</span> result;
+    }
+    
+    <span class="comment">// Funcție pentru decriptare (opusul criptării)</span>
+    <span class="keyword">string</span> <span class="function">decrypt</span>(<span class="keyword">string</span> text, <span class="keyword">int</span> shift) {
+        <span class="keyword">return</span> <span class="function">encrypt</span>(text, <span class="number">26</span> - shift);  <span class="comment">// Deplasăm invers</span>
+    }
+    
+    <span class="keyword">int</span> <span class="function">main</span>() {
+        <span class="keyword">string</span> text = <span class="string">"Salut Lume!"</span>; <span class="comment">// Textul de criptat</span>
+        <span class="keyword">int</span> shift = <span class="number">4</span>; <span class="comment">// Cheia de criptare (deplasarea)</span>
+    
+        <span class="keyword">string</span> encrypted = <span class="function">encrypt</span>(text, shift);
+        <span class="keyword">string</span> decrypted = <span class="function">decrypt</span>(encrypted, shift);
+    
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Text original: "</span> &lt;&lt; text &lt;&lt; <span class="function">endl</span>;
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Text criptat: "</span> &lt;&lt; encrypted &lt;&lt; <span class="function">endl</span>;
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Text decriptat: "</span> &lt;&lt; decrypted &lt;&lt; <span class="function">endl</span>;
+    
+        <span class="keyword">return</span> <span class="number">0</span>;
+    }
+    </code></pre>
+    </div>
+    </div>
+
+    <!--RSA-->
+    <div style="padding: 20px;">
+        <h1>RSA Simplificat în C++</h1>
+        
+        <p>Acest cod C++ implementează un algoritm simplificat pentru criptarea și decriptarea unui mesaj numeric folosind RSA.</p>
+
+        <h2>Codul C++:</h2>
+        <button class="accordion">RSA</button>
+    <div class="panel">
+    <pre><code>
+    <span class="keyword">#include</span> &lt;iostream&gt;
+    <span class="keyword">#include</span> &lt;cmath&gt;
+    <span class="keyword">#include</span> &lt;cstdlib&gt;
+    <span class="keyword">#include</span> &lt;ctime&gt;
+
+    <span class="keyword">using</span> <span class="keyword">namespace</span> std;
+
+    <span class="comment">// Funcție pentru a calcula cel mai mare divizor comun (GCD)</span>
+    <span class="keyword">int</span> <span class="function">gcd</span>(<span class="keyword">int</span> a, <span class="keyword">int</span> b) {
+        <span class="keyword">while</span> (b != <span class="number">0</span>) {
+            <span class="keyword">int</span> temp = b;
+            b = a % b;
+            a = temp;
+        }
+        <span class="keyword">return</span> a;
+    }
+
+    <span class="comment">// Funcție pentru a calcula (a^b) % c</span>
+    <span class="keyword">long long</span> <span class="function">modExp</span>(<span class="keyword">long long</span> a, <span class="keyword">long long</span> b, <span class="keyword">long long</span> c) {
+        <span class="keyword">long long</span> result = <span class="number">1</span>;
+        a = a % c;
+        <span class="keyword">while</span> (b > <span class="number">0</span>) {
+            <span class="keyword">if</span> (b % <span class="number">2</span> == <span class="number">1</span>)
+                result = (result * a) % c;
+            b = b / <span class="number">2</span>;
+            a = (a * a) % c;
+        }
+        <span class="keyword">return</span> result;
+    }
+
+    <span class="comment">// Funcție pentru a găsi inversul modular al lui e mod phi(n) folosind metoda extinsă Euclid</span>
+    <span class="keyword">int</span> <span class="function">modInverse</span>(<span class="keyword">int</span> e, <span class="keyword">int</span> phi) {
+        <span class="keyword">int</span> t = <span class="number">0</span>, newT = <span class="number">1</span>;
+        <span class="keyword">int</span> r = phi, newR = e;
+
+        <span class="keyword">while</span> (newR != <span class="number">0</span>) {
+            <span class="keyword">int</span> quotient = r / newR;
+            <span class="keyword">int</span> tempT = t;
+            t = newT;
+            newT = tempT - quotient * newT;
+
+            <span class="keyword">int</span> tempR = r;
+            r = newR;
+            newR = tempR - quotient * newR;
+        }
+
+        <span class="keyword">if</span> (t < <span class="number">0</span>)
+            t += phi;
+
+        <span class="keyword">return</span> t;
+    }
+
+    <span class="keyword">int</span> <span class="function">main</span>() {
+        srand(time(<span class="number">0</span>));
+
+        <span class="comment">// Alegerea a două numere prime (pentru simplificare, sunt numere mici)</span>
+        <span class="keyword">int</span> p = <span class="number">61</span>;
+        <span class="keyword">int</span> q = <span class="number">53</span>;
+
+        <span class="comment">// Calcularea lui n = p * q</span>
+        <span class="keyword">int</span> n = p * q;
+
+        <span class="comment">// Calcularea funcției Euler φ(n) = (p-1) * (q-1)</span>
+        <span class="keyword">int</span> phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>);
+
+        <span class="comment">// Alegerea cheii publice e, unde 1 < e < φ(n) și gcd(e, φ(n)) = 1</span>
+        <span class="keyword">int</span> e;
+        <span class="keyword">do</span> {
+            e = rand() % (phi - <span class="number">2</span>) + <span class="number">2</span>; <span class="comment">// e este ales aleator între 2 și phi - 1</span>
+        } <span class="keyword">while</span> (<span class="function">gcd</span>(e, phi) != <span class="number">1</span>);
+
+        <span class="comment">// Calcularea cheii private d, astfel încât (d * e) % φ(n) = 1</span>
+        <span class="keyword">int</span> d = <span class="function">modInverse</span>(e, phi);
+
+        <span class="comment">// Afișarea cheilor publice și private</span>
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Cheia publică: ("</span> &lt;&lt; e &lt;&lt; <span class="string">", "</span> &lt;&lt; n &lt;&lt; <span class="string">")"</span> &lt;&lt; <span class="function">endl</span>;
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Cheia privată: ("</span> &lt;&lt; d &lt;&lt; <span class="string">", "</span> &lt;&lt; n &lt;&lt; <span class="string">")"</span> &lt;&lt; <span class="function">endl</span>;
+
+        <span class="comment">// Mesajul de criptat (un număr mai mic decât n)</span>
+        <span class="keyword">int</span> mesaj;
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Introdu un mesaj numeric (mai mic decât "</span> &lt;&lt; n &lt;&lt; <span class="string">"):"</span>;
+        <span class="function">cin</span> &gt;&gt; mesaj;
+
+        <span class="comment">// Criptarea mesajului: C = M^e % n</span>
+        <span class="keyword">int</span> criptat = <span class="function">modExp</span>(mesaj, e, n);
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Mesaj criptat: "</span> &lt;&lt; criptat &lt;&lt; <span class="function">endl</span>;
+
+        <span class="comment">// Decriptarea mesajului: M = C^d % n</span>
+        <span class="keyword">int</span> decriptat = <span class="function">modExp</span>(criptat, d, n);
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Mesaj decriptat: "</span> &lt;&lt; decriptat &lt;&lt; <span class="function">endl</span>;
+
+        <span class="keyword">return</span> <span class="number">0</span>;
+    }
+    </code></pre>
+    </div>
+    </div>
+
+    <!--Blowfish-->
+    <div style="padding: 20px;">
+        <h1>Algoritmul Blowfish în C++</h1>
+
+        <p>Acest cod C++ implementează algoritmul de criptare și decriptare Blowfish.</p>
+
+        <h2>Codul C++:</h2>
+        <button class="accordion">Blowfish</button>
+    <div class="panel">
+    <pre><code>
+    <span class="keyword">#include</span> &lt;iostream&gt;
+    <span class="keyword">#include</span> &lt;vector&gt;
+    <span class="keyword">#include</span> &lt;cstring&gt; <span class="comment">// pentru memcpy</span>
+    
+    <span class="keyword">using namespace</span> std;
+    
+    <span class="comment">// Dimensiunea unui bloc în Blowfish (în biți)</span>
+    <span class="keyword">const int</span> BLOCK_SIZE = <span class="number">8</span>;
+    
+    <span class="comment">// S-Box-uri pentru Blowfish (inițializate cu valori fictive, ar trebui inițializate corect conform specificației)</span>
+    <span class="keyword">unsigned long</span> S[<span class="number">4</span>][<span class="number">256</span>] = {
+        { <span class="comment">/* S-Box 1 valori */</span> },
+        { <span class="comment">/* S-Box 2 valori */</span> },
+        { <span class="comment">/* S-Box 3 valori */</span> },
+        { <span class="comment">/* S-Box 4 valori */</span> }
+    };
+    
+    <span class="comment">// P-array pentru Blowfish (valori inițiale, acestea vor fi modificate de cheie)</span>
+    <span class="keyword">unsigned long</span> P[<span class="number">18</span>] = { 
+        <span class="number">0x243F6A88</span>, <span class="number">0x85A308D3</span>, <span class="number">0x13198A2E</span>, <span class="number">0x03707344</span>,
+        <span class="number">0xA4093822</span>, <span class="number">0x299F31D0</span>, <span class="number">0x082EFA98</span>, <span class="number">0xEC4E6C89</span>,
+        <span class="number">0x452821E6</span>, <span class="number">0x38D01377</span>, <span class="number">0xBE5466CF</span>, <span class="number">0x34E90C6C</span>,
+        <span class="number">0xC0AC29B7</span>, <span class="number">0xC97C50DD</span>, <span class="number">0x3F84D5B5</span>, <span class="number">0xB5470917</span>,
+        <span class="number">0x9216D5D9</span>, <span class="number">0x8979FB1B</span>
+    };
+    
+    <span class="comment">// Funcția F a algoritmului Blowfish</span>
+    <span class="keyword">unsigned long</span> <span class="function">F</span>(<span class="keyword">unsigned long</span> x) {
+        <span class="keyword">unsigned short</span> a, b, c, d;
+        a = (x &gt;&gt; <span class="number">24</span>) &amp; <span class="number">0xFF</span>;
+        b = (x &gt;&gt; <span class="number">16</span>) &amp; <span class="number">0xFF</span>;
+        c = (x &gt;&gt; <span class="number">8</span>) &amp; <span class="number">0xFF</span>;
+        d = x &amp; <span class="number">0xFF</span>;
+    
+        <span class="keyword">return</span> ((S[<span class="number">0</span>][a] + S[<span class="number">1</span>][b]) ^ S[<span class="number">2</span>][c]) + S[<span class="number">3</span>][d];
+    }
+    
+    <span class="comment">// Cifrul Blowfish - rotirea blocurilor de date</span>
+    <span class="keyword">void</span> <span class="function">BlowfishEncrypt</span>(<span class="keyword">unsigned long</span> &amp;left, <span class="keyword">unsigned long</span> &amp;right) {
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">16</span>; i++) {
+            left ^= P[i];
+            right ^= <span class="function">F</span>(left);
+            <span class="function">swap</span>(left, right);
+        }
+    
+        <span class="function">swap</span>(left, right); <span class="comment">// Inversarea finală</span>
+        right ^= P[<span class="number">16</span>];
+        left ^= P[<span class="number">17</span>];
+    }
+    
+    <span class="comment">// Decifrarea Blowfish - operația inversă cifrării</span>
+    <span class="keyword">void</span> <span class="function">BlowfishDecrypt</span>(<span class="keyword">unsigned long</span> &amp;left, <span class="keyword">unsigned long</span> &amp;right) {
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">17</span>; i &gt; <span class="number">1</span>; i--) {
+            left ^= P[i];
+            right ^= <span class="function">F</span>(left);
+            <span class="function">swap</span>(left, right);
+        }
+    
+        <span class="function">swap</span>(left, right); <span class="comment">// Inversarea finală</span>
+        right ^= P[<span class="number">1</span>];
+        left ^= P[<span class="number">0</span>];
+    }
+    
+    <span class="comment">// Inițializarea cheii în Blowfish</span>
+    <span class="keyword">void</span> <span class="function">BlowfishKeyExpansion</span>(<span class="keyword">const vector&lt;unsigned char&gt;</span> &amp;key) {
+        <span class="keyword">int</span> keyIndex = <span class="number">0</span>;
+    
+        <span class="comment">// XOR fiecare valoare din P-array cu cheia</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">18</span>; i++) {
+            <span class="keyword">unsigned long</span> data = <span class="number">0x00000000</span>;
+            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; j++) {
+                data = (data &lt;&lt; <span class="number">8</span>) | key[keyIndex];
+                keyIndex = (keyIndex + <span class="number">1</span>) % key.size();
+            }
+            P[i] ^= data;
+        }
+    
+        <span class="comment">// Criptarea blocurilor nule pentru a finaliza inițializarea</span>
+        <span class="keyword">unsigned long</span> left = <span class="number">0x00000000</span>;
+        <span class="keyword">unsigned long</span> right = <span class="number">0x00000000</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">18</span>; i += <span class="number">2</span>) {
+            <span class="function">BlowfishEncrypt</span>(left, right);
+            P[i] = left;
+            P[i + <span class="number">1</span>] = right;
+        }
+    
+        <span class="comment">// Inițializarea S-box-urilor (aceeași tehnică folosită pentru P-array)</span>
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) {
+            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">256</span>; j += <span class="number">2</span>) {
+                <span class="function">BlowfishEncrypt</span>(left, right);
+                S[i][j] = left;
+                S[i][j + <span class="number">1</span>] = right;
+            }
+        }
+    }
+    
+    <span class="comment">// Funcție pentru a cripta un bloc de 64 de biți (8 octeți)</span>
+    <span class="keyword">void</span> <span class="function">EncryptBlock</span>(<span class="keyword">unsigned char</span> *block) {
+        <span class="keyword">unsigned long</span> left, right;
+        <span class="function">memcpy</span>(&amp;left, block, <span class="number">4</span>);        <span class="comment">// Primele 4 octeți -> partea stângă</span>
+        <span class="function">memcpy</span>(&amp;right, block + <span class="number">4</span>, <span class="number">4</span>);   <span class="comment">// Următorii 4 octeți -> partea dreaptă</span>
+    
+        <span class="function">BlowfishEncrypt</span>(left, right);
+    
+        <span class="function">memcpy</span>(block, &amp;left, <span class="number">4</span>);
+        <span class="function">memcpy</span>(block + <span class="number">4</span>, &amp;right, <span class="number">4</span>);
+    }
+    
+    <span class="comment">// Funcție pentru a decripta un bloc de 64 de biți (8 octeți)</span>
+    <span class="keyword">void</span> <span class="function">DecryptBlock</span>(<span class="keyword">unsigned char</span> *block) {
+        <span class="keyword">unsigned long</span> left, right;
+        <span class="function">memcpy</span>(&amp;left, block, <span class="number">4</span>);        <span class="comment">// Primele 4 octeți -> partea stângă</span>
+        <span class="function">memcpy</span>(&amp;right, block + <span class="number">4</span>, <span class="number">4</span>);   <span class="comment">// Următorii 4 octeți -> partea dreaptă</span>
+    
+        <span class="function">BlowfishDecrypt</span>(left, right);
+    
+        <span class="function">memcpy</span>(block, &amp;left, <span class="number">4</span>);
+        <span class="function">memcpy</span>(block + <span class="number">4</span>, &amp;right, <span class="number">4</span>);
+    }
+    
+    <span class="keyword">int</span> <span class="function">main</span>() {
+        <span class="comment">// Cheia de criptare (exemplu)</span>
+        <span class="keyword">vector&lt;unsigned char&gt;</span> key = { <span class="string">'K'</span>, <span class="string">'e'</span>, <span class="string">'y'</span>, <span class="string">'S'</span>, <span class="string">'e'</span>, <span class="string">'c'</span>, <span class="string">'r'</span>, <span class="string">'e'</span>, <span class="string">'t'</span> };
+    
+        <span class="comment">// Expansiunea cheii Blowfish</span>
+        <span class="function">BlowfishKeyExpansion</span>(key);
+    
+        <span class="comment">// Exemplu de bloc de 8 octeți (64 de biți) de criptat</span>
+        <span class="keyword">unsigned char</span> block[BLOCK_SIZE] = { <span class="string">'T'</span>, <span class="string">'e'</span>, <span class="string">'s'</span>, <span class="string">'t'</span>, <span class="string">'B'</span>, <span class="string">'l'</span>, <span class="string">'o'</span>, <span class="string">'c'</span> };
+    
+        <span class="comment">// Afișarea blocului înainte de criptare</span>
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Bloc înainte de criptare: "</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; BLOCK_SIZE; i++) {
+            <span class="function">cout</span> &lt;&lt; block[i];
+        }
+        <span class="function">cout</span> &lt;&lt; <span class="function">endl</span>;
+    
+        <span class="comment">// Criptarea blocului</span>
+        <span class="function">EncryptBlock</span>(block);
+    
+        <span class="comment">// Afișarea blocului după criptare</span>
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Bloc după criptare: "</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; BLOCK_SIZE; i++) {
+            <span class="function">printf</span>(<span class="string">"%02X "</span>, block[i]);
+        }
+        <span class="function">cout</span> &lt;&lt; <span class="function">endl</span>;
+    
+        <span class="comment">// Decriptarea blocului</span>
+        <span class="function">DecryptBlock</span>(block);
+    
+        <span class="comment">// Afișarea blocului după decriptare</span>
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Bloc după decriptare: "</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; BLOCK_SIZE; i++) {
+            <span class="function">cout</span> &lt;&lt; block[i];
+        }
+        <span class="function">cout</span> &lt;&lt; <span class="function">endl</span>;
+    
+        <span class="keyword">return</span> <span class="number">0</span>;
+    }
+    </code></pre>
+    </div>
+    </div>
+    
+    <!--ECC-->
+    <div style="padding: 20px;">
+        <h1>Algoritmul de criptare ECC în C++</h1>
+
+        <p>Acest cod C++ implementează ECC pentru criptare și decriptare a textului.</p>
+
+        <h2>Codul C++:</h2>
+        <button class="accordion">ECC</button>
+    <div class="panel">
+    <pre><code>
+    <span class="keyword">#include</span> &lt;iostream&gt;
+    <span class="keyword">#include</span> &lt;utility&gt; <span class="comment">// pentru std::pair</span>
+    <span class="keyword">#include</span> &lt;cmath&gt;   <span class="comment">// pentru funcții matematice de bază</span>
+    
+    <span class="keyword">using namespace</span> std;
+    
+    <span class="comment">// Definim structura pentru a reprezenta punctele pe curba eliptică</span>
+    <span class="keyword">struct</span> Point {
+        <span class="keyword">long long</span> x, y;
+    };
+    
+    <span class="comment">// Parametrii curbei eliptice</span>
+    <span class="keyword">struct</span> CurveParams {
+        <span class="keyword">long long</span> a, b, p; <span class="comment">// a și b sunt coeficienții curbei y^2 = x^3 + ax + b, p este câmpul finit</span>
+    };
+    
+    <span class="comment">// Adunarea a două puncte pe o curbă eliptică</span>
+    <span class="keyword">Point</span> <span class="function">addPoints</span>(<span class="keyword">Point</span> P, <span class="keyword">Point</span> Q, <span class="keyword">CurveParams</span> curve) {
+        <span class="keyword">if</span> (P.x == Q.x && P.y == Q.y) {
+            <span class="keyword">long long</span> s = (<span class="number">3</span> * P.x * P.x + curve.a) * <span class="function">modInverse</span>(<span class="number">2</span> * P.y, curve.p) % curve.p;
+            <span class="keyword">long long</span> x_r = (s * s - <span class="number">2</span> * P.x) % curve.p;
+            <span class="keyword">long long</span> y_r = (s * (P.x - x_r) - P.y) % curve.p;
+            <span class="keyword">return</span> {x_r, y_r};
+        } <span class="keyword">else</span> {
+            <span class="keyword">long long</span> s = (Q.y - P.y) * <span class="function">modInverse</span>(Q.x - P.x, curve.p) % curve.p;
+            <span class="keyword">long long</span> x_r = (s * s - P.x - Q.x) % curve.p;
+            <span class="keyword">long long</span> y_r = (s * (P.x - x_r) - P.y) % curve.p;
+            <span class="keyword">return</span> {x_r, y_r};
+        }
+    }
+    
+    <span class="comment">// Funcția pentru înmulțirea unui punct cu un scalar pe o curbă eliptică</span>
+    <span class="keyword">Point</span> <span class="function">scalarMult</span>(<span class="keyword">Point</span> P, <span class="keyword">long long</span> k, <span class="keyword">CurveParams</span> curve) {
+        <span class="keyword">Point</span> result = P;
+        k = k - <span class="number">1</span>; <span class="comment">// Deja avem un punct, deci repetăm k-1 ori adunarea</span>
+        <span class="keyword">while</span> (k > <span class="number">0</span>) {
+            result = <span class="function">addPoints</span>(result, P, curve);
+            k--;
+        }
+        <span class="keyword">return</span> result;
+    }
+    
+    <span class="comment">// Funcție pentru a calcula inversul modular</span>
+    <span class="keyword">long long</span> <span class="function">modInverse</span>(<span class="keyword">long long</span> k, <span class="keyword">long long</span> p) {
+        k = k % p;
+        <span class="keyword">for</span> (<span class="keyword">long long</span> x = <span class="number">1</span>; x &lt; p; x++) {
+            <span class="keyword">if</span> ((k * x) % p == <span class="number">1</span>) {
+                <span class="keyword">return</span> x;
+            }
+        }
+        <span class="keyword">return</span> -1; <span class="comment">// Inversă nu există</span>
+    }
+    
+    <span class="comment">// Funcția principală</span>
+    <span class="keyword">int</span> <span class="function">main</span>() {
+        <span class="comment">// Definim o curbă eliptică simplă: y^2 = x^3 + ax + b (mod p)</span>
+        <span class="keyword">CurveParams</span> curve = {<span class="number">2</span>, <span class="number">3</span>, <span class="number">97</span>}; <span class="comment">// Exemplu: y^2 = x^3 + 2x + 3 (mod 97)</span>
+    
+        <span class="comment">// Punctul generator G de pe curbă</span>
+        <span class="keyword">Point</span> G = {<span class="number">3</span>, <span class="number">6</span>}; <span class="comment">// Exemplu de punct de pe curbă</span>
+    
+        <span class="comment">// Cheia privată a destinatarului</span>
+        <span class="keyword">long long</span> privateKey = <span class="number">7</span>; <span class="comment">// Exemplu de cheie privată</span>
+    
+        <span class="comment">// Cheia publică a destinatarului: PublicKey = privateKey * G</span>
+        <span class="keyword">Point</span> publicKey = <span class="function">scalarMult</span>(G, privateKey, curve);
+    
+        <span class="comment">// Expeditorul alege o cheie aleatorie k pentru criptare</span>
+        <span class="keyword">long long</span> k = <span class="number">5</span> ; <span class="comment">// Cheie aleatorie</span>
+    
+        <span class="comment">// Calcularea punctului R = k * G</span>
+        <span class="keyword">Point</span> R = <span class="function">scalarMult</span>(G, k, curve);
+    
+        <span class="comment">// Mesajul de criptat (reprezentat ca punct pe curba eliptică)</span>
+        <span class="keyword">Point</span> M = {<span class="number">10</span>, <span class="number">22</span>}; <span class="comment">// Exemplu de mesaj ca punct de pe curbă</span>
+    
+        <span class="comment">// Criptarea mesajului: C1 = R, C2 = M + k * publicKey</span>
+        <span class="keyword">Point</span> C1 = R;
+        <span class="keyword">Point</span> C2 = <span class="function">addPoints</span>(M, <span class="function">scalarMult</span>(publicKey, k, curve), curve);
+    
+        <span class="comment">// Afișăm rezultatele criptării</span>
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Mesaj criptat:"</span> &lt;&lt; <span class="function">endl</span>;
+        <span class="function">cout</span> &lt;&lt; <span class="string">"C1: ("</span> &lt;&lt; C1.x &lt;&lt; <span class="string">", "</span> &lt;&lt; C1.y &lt;&lt; <span class="string">")"</span> &lt;&lt; <span class="function">endl</span>;
+        <span class="function">cout</span> &lt;&lt; <span class="string">"C2: ("</span> &lt;&lt; C2.x &lt;&lt; <span class="string">", "</span> &lt;&lt; C2.y &lt;&lt; <span class="string">")"</span> &lt;&lt; <span class="function">endl</span>;
+    
+        <span class="comment">// Decriptarea mesajului: M = C2 - privateKey * C1</span>
+        <span class="keyword">Point</span> decryptedMessage = <span class="function">addPoints</span>(C2, <span class="function">scalarMult</span>(C1, privateKey, curve), curve);
+    
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Mesaj decriptat: ("</span> &lt;&lt; decryptedMessage.x &lt;&lt; <span class="string">", "</span> &lt;&lt; decryptedMessage.y &lt;&lt; <span class="string">")"</span> &lt;&lt; <span class="function">endl</span>;
+    
+        <span class="keyword">return</span> <span class="number">0</span>;
+    }
+    </code></pre>
+    </div>
+    </div>
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+        
+        for (i = 0; i < acc.length; i++) {
+          acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+              panel.style.maxHeight = null;
+            } else {
+              panel.style.maxHeight = panel.scrollHeight + "px";
+            } 
+          });
+        }
+    </script>
+</body>
+</html>
