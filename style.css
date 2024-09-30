@@ -23,6 +23,10 @@ body{
     box-shadow: 0 0 128px 0 rgba(0,0,0,0.1),
                 0 32px 64px -48px rgba(0,0,0,0.5);
 }
+h1,p, h2
+{
+    color:powderblue !important;
+}
 .form-box{
     width: 450px;
     margin: 0px 10px;
@@ -75,7 +79,7 @@ body{
 
 code {
     display: block;
-    background-color: #a9b6da;
+    background-color: #e2e2e27e;
     padding: 10px;
     border-left: 5px solid #ccc;
     margin-bottom: 20px;
@@ -104,7 +108,7 @@ pre {
 }
 
 .accordion {
-    background-color: #6c81bd;
+    background-color: #516b81;
     color: #000000;
     cursor: pointer;
     padding: 18px;
@@ -112,13 +116,13 @@ pre {
     border: none;
     text-align: left;
     outline-style: outset;
-    outline-color:#22272981;
+    outline-color: #A9A9A9;
     font-size: 15px;
     transition: 0.4s;
 }
 
 .active, .accordion:hover {
-    background-color: #4f6bb8;
+    background-color: #89cff0;
 }
 
 .accordion:after {
@@ -135,12 +139,15 @@ pre {
 
 .panel {
     padding: 0 18px;
-    background-color: #556FB6;
+    background-color: #89cff0;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
-
+a
+{
+    color: white;
+}
 /********* Home *****************/
 
 /* .nav{
