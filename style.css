@@ -109,7 +109,8 @@ pre {
 
 .accordion {
     background-color: #516b81;
-    color: #000000;
+    color: #111111;
+    font-weight: bold;
     cursor: pointer;
     padding: 18px;
     width: 100%;
