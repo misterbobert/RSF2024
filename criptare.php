@@ -7,9 +7,9 @@
     <!--Bootstrap files-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Register</title>
+    <title>Criptare</title>
 </head>
-<body style="background: #e4e9f7;">
+<body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="index.html">Acasă</a>
@@ -22,7 +22,7 @@
                 <a class="nav-link active" aria-current="page" href="teorie.html">Teorie</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="criptare.html">Criptează</a>
+                <a class="nav-link" href="#">Criptează</a>
               </li>
               <li class="nav-item"></li>
                 <a class="nav-link" href="register.html">Înregistrează-te</a>
@@ -31,36 +31,8 @@
           </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="box form-box">
-            <header>Înregistrează-te</header>
-            <form action="register.php" method="post">
-
-                <div class="field input">
-                    <label for="username">Nume</label>
-                    <input type="text" name="username" id="username" autocomplete="off" required>
-                </div>
-
-                <div class="field input">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" id="email" autocomplete="off" required>
-                </div>
-
-                <div class="field input">
-                    <label for="age">Vârstă</label>
-                    <input type="number" name="age" id="age" autocomplete="off" required>
-                </div>
-                <div class="field input">
-                    <label for="password">Parolă</label>
-                    <input type="password" name="password" id="password" autocomplete="off" required>
-                </div>
-
-                <div class="field">
-                    
-                    <input type="submit" class="btn" name="submit" value="Trimite" required>
-                </div>                                
-            </form>
-        </div>
-    </div>
 </body>
 </html>
+<php?
+
+?>
