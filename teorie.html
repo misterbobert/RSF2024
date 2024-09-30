@@ -93,23 +93,23 @@
         <button class="accordion">Cifrul lui Ceasar</button>
     <div class="panel">
         <pre><code>
-<span class="keyword">def</span> <span class="function">caesar_cipher</span>(message, shift):
-    <span class="comment"># Funcția pentru criptarea mesajului folosind cifra lui Caesar</span>
-    encrypted_message = <span class="string">""</span>
-    <span class="keyword">for</span> char <span class="keyword">in</span> message:
-        <span class="keyword">if</span> char.<span class="function">isalpha</span>():
-            shift_base = <span class="keyword">ord</span>(<span class="string">'a'</span>) <span class="keyword">if</span> char.<span class="function">islower</span>() <span class="keyword">else</span> <span class="keyword">ord</span>(<span class="string">'A'</span>)
-            encrypted_char = <span class="keyword">chr</span>(<span class="keyword">ord</span>(char) - shift_base + shift) % <span class="number">26</span> + shift_base
-            encrypted_message += encrypted_char
-        <span class="keyword">else</span>:
-            encrypted_message += char
-    <span class="keyword">return</span> encrypted_message
+    <span class="keyword">def</span> <span class="function">caesar_cipher</span>(message, shift):
+        <span class="comment"># Funcția pentru criptarea mesajului folosind cifra lui Caesar</span>
+        encrypted_message = <span class="string">""</span>
+        <span class="keyword">for</span> char <span class="keyword">in</span> message:
+            <span class="keyword">if</span> char.<span class="function">isalpha</span>():
+                shift_base = <span class="keyword">ord</span>(<span class="string">'a'</span>) <span class="keyword">if</span> char.<span class="function">islower</span>() <span class="keyword">else</span> <span class="keyword">ord</span>(<span class="string">'A'</span>)
+                encrypted_char = <span class="keyword">chr</span>(<span class="keyword">ord</span>(char) - shift_base + shift) % <span class="number">26</span> + shift_base
+                encrypted_message += encrypted_char
+            <span class="keyword">else</span>:
+                encrypted_message += char
+        <span class="keyword">return</span> encrypted_message
 
-<span class="keyword"># Exemplu de utilizare</span>
-message = <span class="string">"Mesaj de test."</span>
-shift = <span class="number">3</span>
-encrypted = caesar_cipher(message, shift)
-print(<span class="string">"Mesaj criptat:"</span>, encrypted)
+    <span class="keyword"># Exemplu de utilizare</span>
+    message = <span class="string">"Mesaj de test."</span>
+    shift = <span class="number">3</span>
+    encrypted = caesar_cipher(message, shift)
+    print(<span class="string">"Mesaj criptat:"</span>, encrypted)
 </code></pre>
 </div>
     </div>
@@ -200,20 +200,20 @@ print(<span class="string">"Mesaj criptat:"</span>, encrypted)
         <button class="accordion">HEXA</button>
         <div class="panel">
             <pre><code>
-<span class="keyword">def</span> <span class="function">string_to_hex</span>(input_string):
-    <span class="comment"># Funcție care convertește un șir de caractere în hexazecimal</span>
-    return <span class="keyword">''.join</span>(<span class="function">format</span>(ord(c), <span class="string">'02x'</span>) <span class="keyword">for</span> c <span class="keyword">in</span> input_string)
+    <span class="keyword">def</span> <span class="function">string_to_hex</span>(input_string):
+        <span class="comment"># Funcție care convertește un șir de caractere în hexazecimal</span>
+        return <span class="keyword">''.join</span>(<span class="function">format</span>(ord(c), <span class="string">'02x'</span>) <span class="keyword">for</span> c <span class="keyword">in</span> input_string)
 
-<span class="keyword">def</span> <span class="function">hex_to_string</span>(hex_string):
-    <span class="comment"># Funcție care convertește un șir hexazecimal înapoi în caractere</span>
-    return <span class="keyword">''.join</span>(<span class="keyword">chr</span>(int(hex_string[i:i + <span class="number">2</span>], <span class="number">16</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> range(0, <span class="keyword">len</span>(hex_string), <span class="number">2</span>))
+    <span class="keyword">def</span> <span class="function">hex_to_string</span>(hex_string):
+        <span class="comment"># Funcție care convertește un șir hexazecimal înapoi în caractere</span>
+        return <span class="keyword">''.join</span>(<span class="keyword">chr</span>(int(hex_string[i:i + <span class="number">2</span>], <span class="number">16</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> range(0, <span class="keyword">len</span>(hex_string), <span class="number">2</span>))
 
-<span class="keyword"># Exemplu de utilizare</span>
-message = <span class="string">"Mesaj de test."</span>
-hex_value = string_to_hex(message)
-print(<span class="string">"Mesaj în hexazecimal:"</span>, hex_value)
-decrypted_message = hex_to_string(hex_value)
-print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
+    <span class="keyword"># Exemplu de utilizare</span>
+    message = <span class="string">"Mesaj de test."</span>
+    hex_value = string_to_hex(message)
+    print(<span class="string">"Mesaj în hexazecimal:"</span>, hex_value)
+    decrypted_message = hex_to_string(hex_value)
+    print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
 </code></pre>
         </div>
         </div>
@@ -328,43 +328,43 @@ print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
         <button class="accordion">RSA</button>
     <div class="panel">
         <pre><code>
-<span class="keyword">def</span> <span class="function">gcd</span>(a, b):
-    <span class="comment"># Funcție pentru calculul celui mai mare divizor comun</span>
-    <span class="keyword">while</span> b != <span class="number">0</span>:
-        a, b = b, a % b
-    <span class="keyword">return</span> a
+    <span class="keyword">def</span> <span class="function">gcd</span>(a, b):
+        <span class="comment"># Funcție pentru calculul celui mai mare divizor comun</span>
+        <span class="keyword">while</span> b != <span class="number">0</span>:
+            a, b = b, a % b
+        <span class="keyword">return</span> a
 
-<span class="keyword">def</span> <span class="function">mod_inverse</span>(a, m):
-    <span class="comment"># Funcție pentru calculul inversului modular</span>
-    m0, x0, x1 = m, <span class{number}>0</span>, <span class{number}>1</span>
-    <span class="keyword">while</span> a > <span{number}>1</span>:
-        q = a // m
-        m, a = a % m, m
-        x0, x1 = x1 - q * x0, x0
-    <span class="keyword">return</span> x1 + m0 <span class="keyword">if</span> x1 < <span class="number">0</span> <span class="keyword">else</span> x1
+    <span class="keyword">def</span> <span class="function">mod_inverse</span>(a, m):
+        <span class="comment"># Funcție pentru calculul inversului modular</span>
+        m0, x0, x1 = m, <span class{number}>0</span>, <span class{number}>1</span>
+        <span class="keyword">while</span> a > <span{number}>1</span>:
+            q = a // m
+            m, a = a % m, m
+            x0, x1 = x1 - q * x0, x0
+        <span class="keyword">return</span> x1 + m0 <span class="keyword">if</span> x1 < <span class="number">0</span> <span class="keyword">else</span> x1
 
-<span class="keyword">def</span> <span class="function">rsa_encrypt</span>(plaintext, e, n):
-    <span class="comment"># Funcție pentru criptarea mesajului folosind RSA</span>
-    <span class="keyword">return</span> pow(plaintext, e, n)
+    <span class="keyword">def</span> <span class="function">rsa_encrypt</span>(plaintext, e, n):
+        <span class="comment"># Funcție pentru criptarea mesajului folosind RSA</span>
+        <span class="keyword">return</span> pow(plaintext, e, n)
 
-<span class="keyword">def</span> <span class="function">rsa_decrypt</span>(ciphertext, d, n):
-    <span class="comment"># Funcție pentru decriptarea mesajului folosind RSA</span>
-    <span class="keyword">return</span> pow(ciphertext, d, n)
+    <span class="keyword">def</span> <span class="function">rsa_decrypt</span>(ciphertext, d, n):
+        <span class="comment"># Funcție pentru decriptarea mesajului folosind RSA</span>
+        <span class="keyword">return</span> pow(ciphertext, d, n)
 
-<span class="keyword"># Exemplu de utilizare</span>
-p = <span class="number">61</span>
-q = <span class="number">53</span>
-n = p * q
-phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)
-e = <span class="number">17</span> <span class="keyword"># Cheia publică</span>
-d = mod_inverse(e, phi)
+    <span class="keyword"># Exemplu de utilizare</span>
+    p = <span class="number">61</span>
+    q = <span class="number">53</span>
+    n = p * q
+    phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)
+    e = <span class="number">17</span> <span class="keyword"># Cheia publică</span>
+    d = mod_inverse(e, phi)
 
-message = <span class="number">65</span> <span class="comment"># Mesaj de criptat</span>
-encrypted_message = rsa_encrypt(message, e, n)
-print(<span class="string">"Mesaj criptat:"</span>, encrypted_message)
+    message = <span class="number">65</span> <span class="comment"># Mesaj de criptat</span>
+    encrypted_message = rsa_encrypt(message, e, n)
+    print(<span class="string">"Mesaj criptat:"</span>, encrypted_message)
 
-decrypted_message = rsa_decrypt(encrypted_message, d, n)
-print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
+    decrypted_message = rsa_decrypt(encrypted_message, d, n)
+    print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
 </code></pre>
     </div>
     </div>
@@ -540,6 +540,38 @@ print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
     }
     </code></pre>
     </div>
+    <h2>Codul Python:</h2>
+        <button class="accordion">Blowfish</button>
+    <div class="panel">
+    <pre><code>
+    <span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> Blowfish
+    <span class="keyword">from</span> Crypto.Util.Padding <span class="keyword">import</span> pad, unpad
+
+    <span class="keyword">def</span> <span class="function">blowfish_encrypt</span>(key, plaintext):
+        <span class="comment"># Funcție de criptare folosind Blowfish</span>
+        cipher = Blowfish.new(key, Blowfish.MODE_CBC)
+        iv = cipher.iv
+        ciphertext = cipher.encrypt(pad(plaintext.encode(), Blowfish.block_size))
+        <span class="keyword">return</span> iv + ciphertext
+
+    <span class="keyword">def</span> <span class="function">blowfish_decrypt</span>(key, ciphertext):
+        <span class="comment"># Funcție de decriptare folosind Blowfish</span>
+        iv = ciphertext[:Blowfish.block_size]
+        cipher = Blowfish.new(key, Blowfish.MODE_CBC, iv)
+        decrypted = unpad(cipher.decrypt(ciphertext[Blowfish.block_size:]), Blowfish.block_size)
+        <span class="keyword">return</span> decrypted.decode()
+
+    <span class="keyword"># Exemplu de utilizare</span>
+    key = b'SecretK'  <span class="comment"># Cheie de criptare</span>
+    plaintext = <span class="string">"Mesaj de test."</span>
+    ciphertext = blowfish_encrypt(key, plaintext)
+    print(<span class="string">"Mesaj criptat:"</span>, ciphertext)
+
+    decrypted_message = blowfish_decrypt(key, ciphertext)
+    print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
+    </code></pre>
+
+        </div>
     </div>
     <!--AES-->
     <div style="padding: 20px;">
@@ -606,6 +638,38 @@ print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
         <span class="keyword">return</span> <span class="number">0</span>;
     }
     </code></pre>
+    </div>
+    <h2>Python:</h2>
+        <button class="accordion">AES</button>
+    <div class="panel">
+        <pre><code>
+    <span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> AES
+    <span class="keyword">from</span> Crypto.Util.Padding <span class="keyword">import</span> pad, unpad
+
+    <span class="keyword">def</span> <span class="function">aes_encrypt</span>(key, plaintext):
+        <span class="comment"># Funcție de criptare folosind AES</span>
+        cipher = AES.new(key, AES.MODE_CBC)
+        iv = cipher.iv
+        ciphertext = cipher.encrypt(pad(plaintext.encode(), AES.block_size))
+        <span class="keyword">return</span> iv + ciphertext
+
+    <span class="keyword">def</span> <span class="function">aes_decrypt</span>(key, ciphertext):
+        <span class="comment"># Funcție de decriptare folosind AES</span>
+        iv = ciphertext[:AES.block_size]
+        cipher = AES.new(key, AES.MODE_CBC, iv)
+        decrypted = unpad(cipher.decrypt(ciphertext[AES.block_size:]), AES.block_size)
+        <span class="keyword">return</span> decrypted.decode()
+
+    <span class="keyword"># Exemplu de utilizare</span>
+    key = b'Sixteen byte key'  <span class="comment"># Cheie de 16 bytes pentru AES</span>
+    plaintext = <span class="string">"Mesaj de test."</span>
+    ciphertext = aes_encrypt(key, plaintext)
+    print(<span class="string">"Mesaj criptat:"</span>, ciphertext)
+
+    decrypted_message = aes_decrypt(key, ciphertext)
+    print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
+    </code></pre>
+
     </div>
     </div>
     <!--ECC-->
@@ -712,6 +776,39 @@ print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
     }
     </code></pre>
     </div>
+    <h2>Codul Python:</h2>
+        <button class="accordion">ECC</button>
+    <div class="panel">
+        <pre><code>
+    <span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> ECC
+    <span class="keyword">from</span> Crypto.Signature <span class="keyword">import</span> pkcs1_15
+    <span class="keyword">from</span> Crypto.Hash <span class="keyword">import</span> SHA256
+
+    <span class="keyword">def</span> <span class="function">ecc_encrypt</span>(message):
+        <span class="comment"># Funcție pentru criptarea unui mesaj folosind ECC</span>
+        key = ECC.generate(curve=ECC.SECP256K1)
+        signature = pkcs1_15.new(key).sign(SHA256.new(message.encode()))
+        <span class="keyword">return</span> key.export_key(format=<span class="string">'PEM'</span>), signature
+
+    <span class="keyword">def</span> <span class="function">ecc_decrypt</span>(private_key, message, signature):
+        <span class="comment"># Funcție pentru decriptarea unui mesaj folosind ECC</span>
+        key = ECC.import_key(private_key)
+        try:
+            pkcs1_15.new(key).verify(SHA256.new(message.encode()), signature)
+            <span class="keyword">return</span> <span class="string">"Verificare reușită!"</span>
+        <span class="keyword">except</span> (ValueError, TypeError):
+            <span class="keyword">return</span> <span class="string">"Verificare eșuată!"</span>
+
+    <span class="keyword"># Exemplu de utilizare</span>
+    message = <span class="string">"Mesaj secret."</span>
+        public_key, signature = ecc_encrypt(message)
+    print(<span class="string">"Semnătură generată:"</span>, signature)
+
+    result = ecc_decrypt(public_key, message, signature)
+    print(<span class="string">"Rezultatul verificării:"</span>, result)
+    </code></pre>
+
+        </div>
     </div>
      <!--TwoFish-->
      <div style="padding: 20px;">
@@ -800,6 +897,38 @@ print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
     }
 </code></pre>
 </div>
+<h2>Codul Python:</h2>
+        <button class="accordion">TwoFish</button>
+    <div class="panel">
+        <pre><code>
+    <span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> Twofish
+    <span class="keyword">from</span> Crypto.Util.Padding <span class="keyword">import</span> pad, unpad
+
+    <span class="keyword">def</span> <span class="function">twofish_encrypt</span>(key, plaintext):
+        <span class="comment"># Funcție de criptare folosind TwoFish</span>
+        cipher = Twofish.new(key, Twofish.MODE_CBC)
+        iv = cipher.iv
+        ciphertext = cipher.encrypt(pad(plaintext.encode(), Twofish.block_size))
+        <span class="keyword">return</span> iv + ciphertext
+
+    <span class="keyword">def</span> <span class="function">twofish_decrypt</span>(key, ciphertext):
+        <span class="comment"># Funcție de decriptare folosind TwoFish</span>
+        iv = ciphertext[:Twofish.block_size]
+        cipher = Twofish.new(key, Twofish.MODE_CBC, iv)
+        decrypted = unpad(cipher.decrypt(ciphertext[Twofish.block_size:]), Twofish.block_size)
+        <span class="keyword">return</span> decrypted.decode()
+
+    <span class="keyword"># Exemplu de utilizare</span>
+    key = b'Sixteen byte key'  <span class="comment"># Cheie de criptare</span>
+    plaintext = <span class="string">"Mesaj de test."</span>
+    ciphertext = twofish_encrypt(key, plaintext)
+    print(<span class="string">"Mesaj criptat:"</span>, ciphertext)
+
+    decrypted_message = twofish_decrypt(key, ciphertext)
+    print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
+    </code></pre>
+
+        </div>
 </div>  
 
     <!--DES-->
@@ -863,6 +992,38 @@ print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
     }
 </code></pre>
 </div>
+<h2>Codul Python:</h2>
+        <button class="accordion">DES</button>
+    <div class="panel">
+        <pre><code>
+    <span class="keyword">from</span> Crypto.Cipher <span class="keyword">import</span> DES
+    <span class="keyword">from</span> Crypto.Util.Padding <span class="keyword">import</span> pad, unpad
+
+    <span class="keyword">def</span> <span class="function">des_encrypt</span>(key, plaintext):
+        <span class="comment"># Funcție de criptare folosind DES</span>
+        cipher = DES.new(key, DES.MODE_CBC)
+        iv = cipher.iv
+        ciphertext = cipher.encrypt(pad(plaintext.encode(), DES.block_size))
+        <span class="keyword">return</span> iv + ciphertext
+
+    <span class="keyword">def</span> <span class="function">des_decrypt</span>(key, ciphertext):
+        <span class="comment"># Funcție de decriptare folosind DES</span>
+        iv = ciphertext[:DES.block_size]
+        cipher = DES.new(key, DES.MODE_CBC, iv)
+        decrypted = unpad(cipher.decrypt(ciphertext[DES.block_size:]), DES.block_size)
+        <span class="keyword">return</span> decrypted.decode()
+
+    <span class="keyword"># Exemplu de utilizare</span>
+    key = b'8bytekey'  <span class="comment"># Cheie de 8 bytes pentru DES</span>
+    plaintext = <span class="string">"Mesaj de test."</span>
+    ciphertext = des_encrypt(key, plaintext)
+    print(<span class="string">"Mesaj criptat:"</span>, ciphertext)
+
+    decrypted_message = des_decrypt(key, ciphertext)
+    print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
+</code></pre>
+
+        </div>
 </div>
 <!--Diffie-Hellman-->
 <div style="padding: 20px;">
