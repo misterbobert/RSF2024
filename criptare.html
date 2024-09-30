@@ -31,5 +31,85 @@
           </div>
         </div>
     </nav>
+    
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+           Selectează algoritmul de criptare
+        </button>
+        <ul class="dropdown-menu">
+          <li><button onclick="ceasar()">Cifrul lui Ceasar</button></li>
+          <li><button onclick="rsa()">RSA</button></li>
+          <li><button onclick="blowfish()">Blowfish</button></li>
+          <li><button onclick="ecc()">ECC</button></li>
+        </ul>
+    </div>
+
+    <div id="ceasarDiv" style="display: none;">
+        Ceasar
+    </div>
+    <div id="rsaDiv" style="display: none;">
+        RSA
+    </div>
+    <div id="blowfishDiv" style="display: none;">
+        Blowfish
+    </div>
+    <div id="eccDiv" style="display: none;">
+        ECC
+    </div>
+
+    <script>
+        function ceasar(){
+            console.log("ceasar");
+
+            let ceasarDiv = document.getElementById('ceasarDiv');
+            let rsaDiv = document.getElementById('rsaDiv');
+            let blowfishDiv = document.getElementById('blowfishDiv');
+            let eccDiv = document.getElementById('eccDiv');
+
+            ceasarDiv.style.display = 'block';
+            rsaDiv.style.display = 'none';
+            blowfishDiv.style.display = 'none';
+            eccDiv.style.display = 'none';
+        }
+        function rsa(){
+            console.log("rsa");
+
+            let ceasarDiv = document.getElementById('ceasarDiv');
+            let rsaDiv = document.getElementById('rsaDiv');
+            let blowfishDiv = document.getElementById('blowfishDiv');
+            let eccDiv = document.getElementById('eccDiv');
+
+            ceasarDiv.style.display = 'none';
+            rsaDiv.style.display = 'block';
+            blowfishDiv.style.display = 'none';
+            eccDiv.style.display = 'none';
+        }
+        function blowfish(){
+            console.log("blowfish");
+
+            let ceasarDiv = document.getElementById('ceasarDiv');
+            let rsaDiv = document.getElementById('rsaDiv');
+            let blowfishDiv = document.getElementById('blowfishDiv');
+            let eccDiv = document.getElementById('eccDiv');
+            
+            ceasarDiv.style.display = 'none';
+            rsaDiv.style.display = 'none';
+            blowfishDiv.style.display = 'block';
+            eccDiv.style.display = 'none';
+        }
+        function ecc(){
+            console.log("ecc");
+
+            let ceasarDiv = document.getElementById('ceasarDiv');
+            let rsaDiv = document.getElementById('rsaDiv');
+            let blowfishDiv = document.getElementById('blowfishDiv');
+            let eccDiv = document.getElementById('eccDiv');
+            
+            ceasarDiv.style.display = 'none';
+            rsaDiv.style.display = 'none';
+            blowfishDiv.style.display = 'none';
+            eccDiv.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
