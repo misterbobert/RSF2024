@@ -7,8 +7,21 @@
     <title>Index</title>
 </head>
 <body>
-    <a href="login.html">To Login</a><br>
-    <a href="register.html">To Register</a>
+    <nav id="navbar">
+        <div class="logo">
+            <a href="#">Acasă</a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="register.html">Înregistrează-te</a></li>
+            <li><a href="#">Teorie</a></li>
+            <li><a href="#">Criptează</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
 
     <!--Cifrul lui Ceasar-->
     <div style="padding: 20px;">
@@ -471,6 +484,17 @@
             } 
           });
         }
+
+        /*******Navbar********/
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+
+            // Burger Animation
+            burger.classList.toggle('toggle');
+        });
     </script>
 </body>
 </html>
