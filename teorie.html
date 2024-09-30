@@ -9,7 +9,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <title>Teorie</title>
 </head>
-<body style="background: #e4e9f7;">
+<body style="background: #6d83c0;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="index.html">Acasă</a>
@@ -90,6 +90,91 @@
     </code></pre>
     </div>
     </div>
+    <!--HEXA-->
+    <div style="padding: 20px;">
+        <h1>Algoritmul de criptare HEXA în C++</h1>
+
+        <p>Acest cod C++ implementează un algoritm HEXA pentru criptare și decriptare a textului.</p>
+
+        <h2>Codul C++:</h2>
+        <button class="accordion">HEXA</button>
+        <div class="panel">
+        <pre><code>
+    <span class="keyword">#include</span> &lt;iostream&gt;
+    <span class="keyword">#include</span> &lt;sstream&gt;
+    <span class="keyword">#include</span> &lt;iomanip&gt;
+    <span class="keyword">#include</span> &lt;string&gt;
+            
+    <span class="keyword">using namespace</span> std;
+            
+    <span class="comment">// Funcție care convertește un șir de caractere într-o reprezentare hexazecimală</span>
+    <span class="keyword">std::string</span> <span class="function">stringToHex</span>(<span class="keyword">const std::string&amp;</span> input) {
+    <span class="keyword">std::stringstream</span> ss;
+        ss &lt;&lt; std::hex &lt;&lt; std::setfill(<span class="string">'0'</span>);
+        <span class="keyword">for</span> (<span class="keyword">const char&amp;</span> ch : input) {
+            ss &lt;&lt; std::setw(<span class="number">2</span>) &lt;&lt; static_cast&lt;<span class="keyword">int</span>&gt;(static_cast&lt;<span class="keyword">unsigned char</span>&gt;(ch));
+        }
+        <span class="keyword">return</span> ss.str();
+    }
+            
+    <span class="comment">// Funcție care convertește un șir de caractere hexazecimal înapoi în reprezentarea sa originală</span>
+    <span class="keyword">std::string</span> <span class="function">hexToString</span>(<span class="keyword">const std::string&amp;</span> hexStr) {
+        <span class="keyword">std::string</span> output;
+        <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; hexStr.length(); i += <span class="number">2</span>) {
+            <span class="keyword">std::string</span> part = hexStr.substr(i, <span class="number">2</span>);
+            <span class="keyword">char</span> ch = static_cast&lt;<span class="keyword">char</span>&gt;(std::stoi(part, <span class="keyword">nullptr</span>, <span class="number">16</span>));
+            output.push_back(ch);
+        }
+        <span class="keyword">return</span> output;
+    }
+            
+    <span class="comment">// Funcție de criptare/decriptare folosind XOR</span>
+    <span class="keyword">std::string</span> <span class="function">xorEncryptDecrypt</span>(<span class="keyword">const std::string&amp;</span> input, <span class="keyword">char</span> key) {
+        <span class="keyword">std::string</span> output = input;
+        <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; input.size(); ++i) {
+            output[i] = input[i] ^ key; <span class="comment">// Aplică operația XOR cu cheia</span>
+        }
+        <span class="keyword">return</span> output;
+    }
+            
+    <span class="comment">// Funcție de criptare</span>
+    <span class="keyword">std::string</span> <span class="function">hexaEncrypt</span>(<span class="keyword">const std::string&amp;</span> message, <span class="keyword">char</span> key) {
+        <span class="keyword">std::string</span> xorEncrypted = xorEncryptDecrypt(message, key); <span class="comment">// Pasul 1: Criptare XOR</span>
+        <span class="keyword">return</span> stringToHex(xorEncrypted);  <span class="comment">// Pasul 2: Convertire în hexazecimal</span>
+    }
+            
+    <span class="comment">// Funcție de decriptare</span>
+    <span class="keyword">std::string</span> <span class="function">hexaDecrypt</span>(<span class="keyword">const std::string&amp;</span> hexMessage, <span class="keyword">char</span> key) {
+        <span class="keyword">std::string</span> xorDecrypted = hexToString(hexMessage);  <span class="comment">// Pasul 1: Convertire din hexazecimal în șir normal</span>
+        <span class="keyword">return</span> xorEncryptDecrypt(xorDecrypted, key);         <span class="comment">// Pasul 2: Decriptare XOR</span>
+    }
+            
+    <span class="keyword">int</span> <span class="function">main</span>() {
+        <span class="keyword">std::string</span> message;
+        <span class="keyword">char</span> key;
+                    
+        <span class="comment">// Citim mesajul de criptat de la utilizator</span>
+        <span class="function">std::cout</span> &lt;&lt; <span class="string">"Introdu mesajul pentru criptare: "</span>;
+        <span class="function">std::getline</span>(std::cin, message);
+            
+        <span class="comment">// Citim cheia pentru criptare (un singur caracter)</span>
+        <span class="function">std::cout</span> &lt;&lt; <span class="string">"Introdu cheia (un singur caracter): "</span>;
+        <span class="function">std::cin</span> &gt;&gt; key;
+            
+        <span class="comment">// Criptăm mesajul</span>
+        <span class="keyword">std::string</span> encrypted = hexaEncrypt(message, key);
+        <span class="function">std::cout</span> &lt;&lt; <span class="string">"Mesaj criptat (Hexa Crypt): "</span> &lt;&lt; encrypted &lt;&lt; <span class="function">std::endl</span>;
+            
+        <span class="comment">// Decriptăm mesajul</span>
+        <span class="keyword">std::string</span> decrypted = hexaDecrypt(encrypted, key);
+        <span class="function">std::cout</span> &lt;&lt; <span class="string">"Mesaj decriptat (Mesaj original): "</span> &lt;&lt; decrypted &lt;&lt; <span class="function">std::endl</span>;
+            
+        <span class="keyword">return</span> <span class="number">0</span>;
+    }
+            </code></pre>
+        </div>
+        </div>
+
 
     <!--RSA-->
     <div style="padding: 20px;">
@@ -370,7 +455,73 @@
     </code></pre>
     </div>
     </div>
-    
+    <!--AES-->
+    <div style="padding: 20px;">
+        <h1>Algoritmul de criptare AES în C++</h1>
+
+        <p>Acest cod C++ implementează un algoritm AES pentru criptare și decriptare a textului.</p>
+
+        <h2>Codul C++:</h2>
+        <button class="accordion">AES</button>
+    <div class="panel">
+<pre><code>
+    <span class="keyword">#include</span> &lt;iostream&gt;
+    <span class="keyword">#include</span> &lt;string&gt;
+    <span class="keyword">#include</span> &lt;openssl/aes.h&gt;
+    <span class="keyword">#include</span> &lt;openssl/rand.h&gt;
+
+    <span class="keyword">using namespace</span> std;
+
+    <span class="comment">// Funcție pentru criptare AES</span>
+    <span class="keyword">void</span> <span class="function">aesEncrypt</span>(<span class="keyword">const unsigned char*</span> input, <span class="keyword">unsigned char*</span> output, <span class="keyword">const unsigned char*</span> key) {
+        AES_KEY encryptKey;
+        AES_set_encrypt_key(key, <span class="number">128</span>, &encryptKey); <span class="comment">// Setăm cheia AES</span>
+        AES_encrypt(input, output, &encryptKey); <span class="comment">// Criptăm folosind AES</span>
+    }
+
+    <span class="comment">// Funcție pentru decriptare AES</span>
+    <span class="keyword">void</span> <span class="function">aesDecrypt</span>(<span class="keyword">const unsigned char*</span> input, <span class="keyword">unsigned char*</span> output, <span class="keyword">const unsigned char*</span> key) {
+        AES_KEY decryptKey;
+        AES_set_decrypt_key(key, <span class="number">128</span>, &decryptKey); <span class="comment">// Setăm cheia AES pentru decriptare</span>
+        AES_decrypt(input, output, &decryptKey); <span class="comment">// Decriptăm folosind AES</span>
+    }
+
+    <span class="keyword">int</span> <span class="function">main</span>() {
+        <span class="comment">// Cheia trebuie să fie de exact 16 octeți pentru AES-128</span>
+        <span class="keyword">unsigned char</span> key[AES_BLOCK_SIZE] = {<span class="number">0x01</span>, <span class="number">0x02</span>, <span class="number">0x03</span>, <span class="number">0x04</span>, 
+                                               <span class="number">0x05</span>, <span class="number">0x06</span>, <span class="number">0x07</span>, <span class="number">0x08</span>,
+                                               <span class="number">0x09</span>, <span class="number">0x0A</span>, <span class="number">0x0B</span>, <span class="number">0x0C</span>,
+                                               <span class="number">0x0D</span>, <span class="number">0x0E</span>, <span class="number">0x0F</span>, <span class="number">0x10</span>};
+
+        <span class="keyword">unsigned char</span> input[AES_BLOCK_SIZE] = {<span class="string">'T'</span>, <span class="string">'e'</span>, <span class="string">'s'</span>, <span class="string">'t'</span>, 
+                                              <span class="string">'I'</span>, <span class="string">'n'</span>, <span class="string">'p'</span>, <span class="string">'u'</span>, 
+                                              <span class="string">'t'</span>, <span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>, 
+                                              <span class="string">'4'</span>, <span class="string">'5'</span>, <span class="string">'6'</span>, <span class="string">'7'</span>};
+
+        <span class="keyword">unsigned char</span> encryptedOutput[AES_BLOCK_SIZE];
+        <span class="keyword">unsigned char</span> decryptedOutput[AES_BLOCK_SIZE];
+
+        <span class="comment">// Criptare</span>
+        aesEncrypt(input, encryptedOutput, key);
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Mesaj criptat: "</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; AES_BLOCK_SIZE; i++) {
+            <span class="function">printf</span>(<span class="string">"%02x "</span>, encryptedOutput[i]);
+        }
+        <span class="function">cout</span> &lt;&lt; <span class="function">endl</span>;
+
+        <span class="comment">// Decriptare</span>
+        aesDecrypt(encryptedOutput, decryptedOutput, key);
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Mesaj decriptat: "</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; AES_BLOCK_SIZE; i++) {
+            <span class="function">cout</span> &lt;&lt; decryptedOutput[i];
+        }
+        <span class="function">cout</span> &lt;&lt; <span class="function">endl</span>;
+
+        <span class="keyword">return</span> <span class="number">0</span>;
+    }
+    </code></pre>
+    </div>
+    </div>
     <!--ECC-->
     <div style="padding: 20px;">
         <h1>Algoritmul de criptare ECC în C++</h1>
@@ -476,6 +627,157 @@
     </code></pre>
     </div>
     </div>
+     <!--TwoFish-->
+     <div style="padding: 20px;">
+        <h1>Algoritmul de criptare TwoFish în C++</h1>
+
+        <p>Acest cod C++ implementează TwoFish pentru criptare și decriptare a textului.</p>
+
+        <h2>Codul C++:</h2>
+        <button class="accordion">TwoFish</button>
+    <div class="panel">
+      <pre><code>
+    <span class="keyword">#include</span> &lt;iostream&gt;
+    <span class="keyword">#include</span> &lt;string&gt;
+    <span class="keyword">#include</span> &lt;cryptlib.h&gt;
+    <span class="keyword">#include</span> &lt;twofish.h&gt;
+    <span class="keyword">#include</span> &lt;hex.h&gt;
+    <span class="keyword">#include</span> &lt;secblock.h&gt;
+    <span class="keyword">#include</span> &lt;osrng.h&gt;
+
+    <span class="keyword">using namespace</span> CryptoPP;
+    <span class="keyword">using namespace</span> std;
+
+    <span class="comment">// Funcție pentru criptare Twofish</span>
+    <span class="keyword">string</span> <span class="function">twofishEncrypt</span>(<span class="keyword">const string&amp;</span> plainText, <span class="keyword">const SecByteBlock&amp;</span> key) {
+        <span class="keyword">string</span> cipherText;
+        AutoSeededRandomPool prng;
+        
+        <span class="comment">// Inițializare cu vector de inițializare</span>
+        byte iv[Twofish::BLOCKSIZE];
+        prng.GenerateBlock(iv, sizeof(iv));
+
+        CBC_Mode&lt;Twofish&gt;::Encryption encryption;
+        encryption.SetKeyWithIV(key, key.size(), iv);
+
+        <span class="keyword">StringSource</span> ss1(plainText, <span class="keyword">true</span>, 
+            <span class="keyword">new</span> StreamTransformationFilter(encryption, 
+            <span class="keyword">new</span> StringSink(cipherText), BlockPaddingSchemeDef::PKCS_PADDING));
+
+        <span class="comment">// Adăugăm IV-ul la începutul cifrului pentru a-l putea folosi la decriptare</span>
+        <span class="keyword">string</span> cipherWithIV(reinterpret_cast&lt;<span class="keyword">const char*</span>&gt;(iv), Twofish::BLOCKSIZE);
+        cipherWithIV += cipherText;
+
+        <span class="keyword">return</span> cipherWithIV;
+    }
+
+    <span class="comment">// Funcție pentru decriptare Twofish</span>
+    <span class="keyword">string</span> <span class="function">twofishDecrypt</span>(<span class="keyword">const string&amp;</span> cipherWithIV, <span class="keyword">const SecByteBlock&amp;</span> key) {
+        <span class="keyword">string</span> plainText;
+        
+        <span class="comment">// Extragem IV-ul din începutul cifrului</span>
+        byte iv[Twofish::BLOCKSIZE];
+        std::memcpy(iv, cipherWithIV.data(), Twofish::BLOCKSIZE);
+
+        <span class="comment">// Extragem restul textului criptat</span>
+        <span class="keyword">string</span> cipherText = cipherWithIV.substr(Twofish::BLOCKSIZE);
+
+        CBC_Mode&lt;Twofish&gt;::Decryption decryption;
+        decryption.SetKeyWithIV(key, key.size(), iv);
+
+        <span class="keyword">StringSource</span> ss2(cipherText, <span class="keyword">true</span>, 
+            <span class="keyword">new</span> StreamTransformationFilter(decryption, 
+            <span class="keyword">new</span> StringSink(plainText), BlockPaddingSchemeDef::PKCS_PADDING));
+
+        <span class="keyword">return</span> plainText;
+    }
+
+    <span class="keyword">int</span> <span class="function">main</span>() {
+        AutoSeededRandomPool prng;
+
+        <span class="comment">// Definim cheia (16, 24 sau 32 octeți pentru Twofish)</span>
+        SecByteBlock key(Twofish::DEFAULT_KEYLENGTH);
+        prng.GenerateBlock(key, key.size());
+
+        <span class="comment">// Mesajul pe care dorim să-l criptăm</span>
+        <span class="keyword">string</span> plainText = <span class="string">"Mesajul secret pentru Twofish!"</span>;
+
+        <span class="comment">// Criptăm mesajul</span>
+        <span class="keyword">string</span> cipherText = twofishEncrypt(plainText, key);
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Mesaj criptat (Twofish): "</span> &lt;&lt; cipherText &lt;&lt; <span class="function">endl</span>;
+
+        <span class="comment">// Decriptăm mesajul</span>
+        <span class="keyword">string</span> decryptedText = twofishDecrypt(cipherText, key);
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Mesaj decriptat (Twofish): "</span> &lt;&lt; decryptedText &lt;&lt; <span class="function">endl</span>;
+
+        <span class="keyword">return</span> <span class="number">0</span>;
+    }
+</code></pre>
+</div>
+</div>  
+
+    <!--DES-->
+    <div style="padding: 20px;">
+        <h1>Algoritmul de criptare DES în C++</h1>
+
+        <p>Acest cod C++ implementează DES pentru criptare și decriptare a textului.</p>
+
+        <h2>Codul C++:</h2>
+        <button class="accordion">DES</button>
+    <div class="panel">
+    <pre><code>
+    <span class="keyword">#include</span> &lt;iostream&gt;
+    <span class="keyword">#include</span> &lt;string&gt;
+    <span class="keyword">#include</span> &lt;openssl/des.h&gt;
+
+    <span class="keyword">using namespace</span> std;
+
+    <span class="comment">// Funcție pentru criptare DES</span>
+    <span class="keyword">void</span> <span class="function">desEncrypt</span>(<span class="keyword">const unsigned char*</span> input, <span class="keyword">unsigned char*</span> output, <span class="keyword">const_DES_cblock</span> key) {
+        DES_key_schedule schedule;
+        DES_set_key_checked(&key, &schedule); <span class="comment">// Setăm cheia DES</span>
+        DES_ecb_encrypt((<span class="keyword">const_DES_cblock</span>*)input, (<span class="keyword">DES_cblock*</span>)output, &schedule, DES_ENCRYPT); <span class="comment">// Criptare DES</span>
+    }
+
+    <span class="comment">// Funcție pentru decriptare DES</span>
+    <span class="keyword">void</span> <span class="function">desDecrypt</span>(<span class="keyword">const unsigned char*</span> input, <span class="keyword">unsigned char*</span> output, <span class="keyword">const_DES_cblock</span> key) {
+        DES_key_schedule schedule;
+        DES_set_key_checked(&key, &schedule); <span class="comment">// Setăm cheia DES pentru decriptare</span>
+        DES_ecb_encrypt((<span class="keyword">const_DES_cblock</span>*)input, (<span class="keyword">DES_cblock*</span>)output, &schedule, DES_DECRYPT); <span class="comment">// Decriptare DES</span>
+    }
+
+    <span class="keyword">int</span> <span class="function">main</span>() {
+        <span class="comment">// Cheia trebuie să fie de exact 8 octeți pentru DES</span>
+        <span class="keyword">DES_cblock</span> key = {<span class="number">0x01</span>, <span class="number">0x02</span>, <span class="number">0x03</span>, <span class="number">0x04</span>, 
+                                  <span class="number">0x05</span>, <span class="number">0x06</span>, <span class="number">0x07</span>, <span class="number">0x08</span>};
+
+        <span class="keyword">unsigned char</span> input[<span class="number">8</span>] = {<span class="string">'M'</span>, <span class="string">'e'</span>, <span class="string">'s'</span>, <span class="string">'a'</span>,
+                                          <span class="string">'j'</span>, <span class="string">'T'</span>, <span class="string">'e'</span>, <span class="string">'s'</span>};
+
+        <span class="keyword">unsigned char</span> encryptedOutput[<span class="number">8</span>];
+        <span class="keyword">unsigned char</span> decryptedOutput[<span class="number">8</span>];
+
+        <span class="comment">// Criptare</span>
+        desEncrypt(input, encryptedOutput, key);
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Mesaj criptat (DES): "</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) {
+            <span class="function">printf</span>(<span class="string">"%02x "</span>, encryptedOutput[i]);
+        }
+        <span class="function">cout</span> &lt;&lt; <span class="function">endl</span>;
+
+        <span class="comment">// Decriptare</span>
+        desDecrypt(encryptedOutput, decryptedOutput, key);
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Mesaj decriptat (DES): "</span>;
+        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) {
+            <span class="function">cout</span> &lt;&lt; decryptedOutput[i];
+        }
+        <span class="function">cout</span> &lt;&lt; <span class="function">endl</span>;
+
+        <span class="keyword">return</span> <span class="number">0</span>;
+    }
+</code></pre>
+</div>
+</div>
 
     <script>
         var acc = document.getElementsByClassName("accordion");

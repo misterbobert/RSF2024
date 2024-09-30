@@ -75,17 +75,17 @@ body{
 
 code {
     display: block;
-    background-color: #f0f0f0;
+    background-color: #a9b6da;
     padding: 10px;
     border-left: 5px solid #ccc;
     margin-bottom: 20px;
     white-space: pre-wrap;
 }
 pre {
-    background-color: #f7f7f9;
+    background-color: #a9b6da;
     padding: 15px;
     border-radius: 5px;
-    border: 1px solid #e1e1e8;
+    border: 1px solid #a9b6da;
     overflow: auto;
 }
 .keyword {
@@ -104,20 +104,21 @@ pre {
 }
 
 .accordion {
-    background-color: #eee;
-    color: #444;
+    background-color: #6c81bd;
+    color: #000000;
     cursor: pointer;
     padding: 18px;
     width: 100%;
     border: none;
     text-align: left;
-    outline: none;
+    outline-style: outset;
+    outline-color:#22272981;
     font-size: 15px;
     transition: 0.4s;
 }
 
 .active, .accordion:hover {
-    background-color: #ccc;
+    background-color: #4f6bb8;
 }
 
 .accordion:after {
@@ -134,7 +135,7 @@ pre {
 
 .panel {
     padding: 0 18px;
-    background-color: white;
+    background-color: #556FB6;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
