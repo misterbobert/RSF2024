@@ -89,6 +89,29 @@
     }
     </code></pre>
     </div>
+    <h2>Codul Python:</h2>
+        <button class="accordion">Cifrul lui Ceasar</button>
+    <div class="panel">
+        <pre><code>
+<span class="keyword">def</span> <span class="function">caesar_cipher</span>(message, shift):
+    <span class="comment"># Funcția pentru criptarea mesajului folosind cifra lui Caesar</span>
+    encrypted_message = <span class="string">""</span>
+    <span class="keyword">for</span> char <span class="keyword">in</span> message:
+        <span class="keyword">if</span> char.<span class="function">isalpha</span>():
+            shift_base = <span class="keyword">ord</span>(<span class="string">'a'</span>) <span class="keyword">if</span> char.<span class="function">islower</span>() <span class="keyword">else</span> <span class="keyword">ord</span>(<span class="string">'A'</span>)
+            encrypted_char = <span class="keyword">chr</span>(<span class="keyword">ord</span>(char) - shift_base + shift) % <span class="number">26</span> + shift_base
+            encrypted_message += encrypted_char
+        <span class="keyword">else</span>:
+            encrypted_message += char
+    <span class="keyword">return</span> encrypted_message
+
+<span class="keyword"># Exemplu de utilizare</span>
+message = <span class="string">"Mesaj de test."</span>
+shift = <span class="number">3</span>
+encrypted = caesar_cipher(message, shift)
+print(<span class="string">"Mesaj criptat:"</span>, encrypted)
+</code></pre>
+</div>
     </div>
     <!--HEXA-->
     <div style="padding: 20px;">
@@ -172,6 +195,26 @@
         <span class="keyword">return</span> <span class="number">0</span>;
     }
             </code></pre>
+        </div>
+        <h2>Python:</h2>
+        <button class="accordion">HEXA</button>
+        <div class="panel">
+            <pre><code>
+<span class="keyword">def</span> <span class="function">string_to_hex</span>(input_string):
+    <span class="comment"># Funcție care convertește un șir de caractere în hexazecimal</span>
+    return <span class="keyword">''.join</span>(<span class="function">format</span>(ord(c), <span class="string">'02x'</span>) <span class="keyword">for</span> c <span class="keyword">in</span> input_string)
+
+<span class="keyword">def</span> <span class="function">hex_to_string</span>(hex_string):
+    <span class="comment"># Funcție care convertește un șir hexazecimal înapoi în caractere</span>
+    return <span class="keyword">''.join</span>(<span class="keyword">chr</span>(int(hex_string[i:i + <span class="number">2</span>], <span class="number">16</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> range(0, <span class="keyword">len</span>(hex_string), <span class="number">2</span>))
+
+<span class="keyword"># Exemplu de utilizare</span>
+message = <span class="string">"Mesaj de test."</span>
+hex_value = string_to_hex(message)
+print(<span class="string">"Mesaj în hexazecimal:"</span>, hex_value)
+decrypted_message = hex_to_string(hex_value)
+print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
+</code></pre>
         </div>
         </div>
 
@@ -280,6 +323,49 @@
         <span class="keyword">return</span> <span class="number">0</span>;
     }
     </code></pre>
+    </div>
+    <h2>Codul Python:</h2>
+        <button class="accordion">RSA</button>
+    <div class="panel">
+        <pre><code>
+<span class="keyword">def</span> <span class="function">gcd</span>(a, b):
+    <span class="comment"># Funcție pentru calculul celui mai mare divizor comun</span>
+    <span class="keyword">while</span> b != <span class="number">0</span>:
+        a, b = b, a % b
+    <span class="keyword">return</span> a
+
+<span class="keyword">def</span> <span class="function">mod_inverse</span>(a, m):
+    <span class="comment"># Funcție pentru calculul inversului modular</span>
+    m0, x0, x1 = m, <span class{number}>0</span>, <span class{number}>1</span>
+    <span class="keyword">while</span> a > <span{number}>1</span>:
+        q = a // m
+        m, a = a % m, m
+        x0, x1 = x1 - q * x0, x0
+    <span class="keyword">return</span> x1 + m0 <span class="keyword">if</span> x1 < <span class="number">0</span> <span class="keyword">else</span> x1
+
+<span class="keyword">def</span> <span class="function">rsa_encrypt</span>(plaintext, e, n):
+    <span class="comment"># Funcție pentru criptarea mesajului folosind RSA</span>
+    <span class="keyword">return</span> pow(plaintext, e, n)
+
+<span class="keyword">def</span> <span class="function">rsa_decrypt</span>(ciphertext, d, n):
+    <span class="comment"># Funcție pentru decriptarea mesajului folosind RSA</span>
+    <span class="keyword">return</span> pow(ciphertext, d, n)
+
+<span class="keyword"># Exemplu de utilizare</span>
+p = <span class="number">61</span>
+q = <span class="number">53</span>
+n = p * q
+phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)
+e = <span class="number">17</span> <span class="keyword"># Cheia publică</span>
+d = mod_inverse(e, phi)
+
+message = <span class="number">65</span> <span class="comment"># Mesaj de criptat</span>
+encrypted_message = rsa_encrypt(message, e, n)
+print(<span class="string">"Mesaj criptat:"</span>, encrypted_message)
+
+decrypted_message = rsa_decrypt(encrypted_message, d, n)
+print(<span class="string">"Mesaj decriptat:"</span>, decrypted_message)
+</code></pre>
     </div>
     </div>
 
@@ -866,6 +952,72 @@
 
         <span class="keyword">return</span> <span class="number">0</span>;
     }
+</code></pre>
+</div>
+<h2>Codul Python:</h2>
+        <button class="accordion">Diffie-Hellman</button>
+        <div class="panel">
+            <pre><code>
+    <span class="keyword">from</span> cryptography.hazmat.primitives.asymmetric <span class="keyword">import</span> dh
+    <span class="keyword">from</span> cryptography.hazmat.primitives <span class="keyword">import</span> serialization
+    <span class="keyword">from</span> cryptography.hazmat.backends <span class="keyword">import</span> default_backend
+    <span class="keyword">import</span> binascii
+
+    <span class="comment"># Funcție pentru generarea cheilor (privată și publică) folosind parametrii DH</span>
+    <span class="keyword">def</span> <span class="function">generate_keys</span>(<span class="keyword">parameters</span>):
+        <span class="comment"># Generăm cheia privată pentru utilizare în schimb</span>
+        <span class="keyword">private_key</span> = parameters.generate_private_key()
+        <span class="keyword">public_key</span> = private_key.public_key()
+        <span class="keyword">return</span> private_key, public_key
+
+    <span class="comment"># Funcție pentru calcularea cheii comune</span>
+    <span class="keyword">def</span> <span class="function">compute_shared_key</span>(<span class="keyword">private_key</span>, <span class="keyword">other_public_key</span>):
+        <span class="comment"># Generăm cheia comună</span>
+        <span class="keyword">shared_key</span> = private_key.exchange(other_public_key)
+        <span class="keyword">return</span> shared_key
+
+    <span class="comment"># Funcție pentru a converti o cheie în hexazecimal pentru a o putea vizualiza</span>
+    <span class="keyword">def</span> <span class="function">key_to_hex</span>(<span class="keyword">key</span>):
+        <span class="keyword">return</span> binascii.hexlify(key).decode()
+
+    <span class="comment"># Funcția principală</span>
+    <span class="keyword">def</span> <span class="function">main</span>():
+        <span class="comment"># Definirea parametrilor pentru DH</span>
+        <span class="keyword">parameters</span> = dh.generate_parameters(generator=<span class="number">2</span>, key_size=<span class="number">2048</span>, backend=default_backend())
+
+        <span class="comment"># Generăm chei pentru Alice</span>
+        <span class="keyword">alice_private_key</span>, <span class="keyword">alice_public_key</span> = <span class="function">generate_keys</span>(parameters)
+
+        <span class="comment"># Generăm chei pentru Bob</span>
+        <span class="keyword">bob_private_key</span>, <span class="keyword">bob_public_key</span> = <span class="function">generate_keys</span>(parameters)
+
+        <span class="comment"># Calculăm cheile comune</span>
+        <span class="keyword">alice_shared_key</span> = <span class="function">compute_shared_key</span>(alice_private_key, bob_public_key)
+        <span class="keyword">bob_shared_key</span> = <span class="function">compute_shared_key</span>(bob_private_key, alice_public_key)
+
+        <span class="comment"># Conversia cheilor în hexazecimal pentru afișare</span>
+        <span class="function">print</span>(<span class="string">"Cheia privată Alice (hex): "</span>, <span class="function">key_to_hex</span>(alice_private_key.private_bytes(
+            encoding=serialization.Encoding.DER,
+            format=serialization.PrivateFormat.TraditionalOpenSSL)))
+        
+        <span class="function">print</span>(<span class="string">"Cheia publică Alice (hex): "</span>, <span class="function">key_to_hex</span>(alice_public_key.public_bytes(
+            encoding=serialization.Encoding.DER,
+            format=serialization.PublicFormat.SubjectPublicKeyInfo)))
+        
+        <span class="function">print</span>(<span class="string">"Cheia comună Alice (hex): "</span>, <span class="function">key_to_hex</span>(alice_shared_key))
+
+        <span class="function">print</span>(<span class="string">"Cheia privată Bob (hex): "</span>, <span class="function">key_to_hex</span>(bob_private_key.private_bytes(
+            encoding=serialization.Encoding.DER,
+            format=serialization.PrivateFormat.TraditionalOpenSSL)))
+        
+        <span class="function">print</span>(<span class="string">"Cheia publică Bob (hex): "</span>, <span class="function">key_to_hex</span>(bob_public_key.public_bytes(
+            encoding=serialization.Encoding.DER,
+            format=serialization.PublicFormat.SubjectPublicKeyInfo)))
+        
+        <span class="function">print</span>(<span class="string">"Cheia comună Bob (hex): "</span>, <span class="function">key_to_hex</span>(bob_shared_key))
+
+    <span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+        <span class="function">main</span>()
 </code></pre>
 </div>
 </div>
