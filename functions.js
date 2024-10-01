@@ -2,8 +2,24 @@ let state = 'cript';
 
 function switchState()
 {
-    if(state === 'cript') state = 'decript';
-    else if(state === 'decript') state = 'cript';
+    if(state === 'cript') 
+    {
+        state = 'decript';
+        let elements = document.getElementsByClassName('status');
+        for(let i=0; i<elements.length; i++)
+        {
+            elements[i].value = 'Se decriptează';
+        }
+    }
+    else if(state === 'decript') 
+    {
+        state = 'cript';
+        let elements = document.getElementsByClassName('status');
+        for(let i=0; i<elements.length; i++)
+        {
+            elements[i].value = 'Se criptează';
+        }
+    }
 }
 
 function ceasarCriptDecript(input)

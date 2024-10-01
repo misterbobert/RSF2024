@@ -1203,6 +1203,167 @@
 
         </div>
     </div>
+
+    
+
+<!--Diffie-Hellman-->
+<div style="padding: 20px;">
+    <h1>Algoritmul de criptare Diffie-Hellman în C++</h1>
+
+    <p>Acest cod C++ implementează algoritmul Diffie-Hellman pentru criptare și decriptare a textului.</p>
+
+    <h2>Codul C++:</h2>
+    <button class="accordion">Diffie-Hellman</button>
+<div class="panel">
+    <pre><code>
+    <span class="keyword">#include</span> &lt;iostream&gt;
+    <span class="keyword">#include</span> &lt;dh.h&gt;
+    <span class="keyword">#include</span> &lt;osrng.h&gt;
+    <span class="keyword">#include</span> &lt;nbtheory.h&gt;
+    <span class="keyword">#include</span> &lt;hex.h&gt;
+    <span class="keyword">#include</span> &lt;secblock.h&gt;
+
+    <span class="keyword">using namespace</span> CryptoPP;
+    <span class="keyword">using namespace</span> std;
+
+    <span class="comment">// Funcție pentru generarea perechii de chei (privată și publică) folosind Diffie-Hellman</span>
+    <span class="keyword">void</span> <span class="function">generateKeys</span>(DH&amp; dh, SecByteBlock&amp; privateKey, SecByteBlock&amp; publicKey) {
+        AutoSeededRandomPool prng;
+
+        <span class="comment">// Generăm cheia privată și cea publică</span>
+        privateKey = SecByteBlock(dh.PrivateKeyLength());
+        publicKey = SecByteBlock(dh.PublicKeyLength());
+        dh.GenerateKeyPair(prng, privateKey, publicKey);
+    }
+
+    <span class="comment">// Funcție pentru calcularea cheii comune</span>
+    <span class="keyword">SecByteBlock</span> <span class="function">computeSharedKey</span>(DH&amp; dh, <span class="keyword">const</span> SecByteBlock&amp; privateKey, <span class="keyword">const</span> SecByteBlock&amp; otherPublicKey) {
+        AutoSeededRandomPool prng;
+        SecByteBlock sharedKey(dh.AgreedValueLength());
+
+        <span class="keyword">if</span> (!dh.Agree(sharedKey, privateKey, otherPublicKey)) {
+            <span class="function">cerr</span> &lt;&lt; <span class="string">"Eșec în calcularea cheii comune!"</span> &lt;&lt; <span class="function">endl</span>;
+            exit(1);
+        }
+        <span class="keyword">return</span> sharedKey;
+    }
+
+    <span class="comment">// Funcție pentru a converti o cheie în hexazecimal pentru a o putea vizualiza</span>
+    <span class="keyword">string</span> <span class="function">keyToHex</span>(<span class="keyword">const</span> SecByteBlock&amp; key) {
+        <span class="keyword">string</span> hexKey;
+        HexEncoder encoder(<span class="keyword">new</span> StringSink(hexKey));
+        encoder.Put(key, key.size());
+        encoder.MessageEnd();
+        <span class="keyword">return</span> hexKey;
+    }
+
+    <span class="keyword">int</span> <span class="function">main</span>() {
+        <span class="comment">// Setări pentru parametrul DH</span>
+        AutoSeededRandomPool prng;
+        Integer p("0xFFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1"
+                  "29024E088A67CC74020BBEA63B139B22514A08798E3404DD"
+                  "EF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245"
+                  "E485B576625E7EC6F44C42E9A63A36210000000000090563");
+        Integer g("2");
+
+        <span class="comment">// Inițializăm obiectul Diffie-Hellman cu parametrul p și baza g</span>
+        DH dh(p, g);
+
+        <span class="comment">// Generăm chei pentru Alice</span>
+        SecByteBlock alicePrivateKey, alicePublicKey;
+        <span class="function">generateKeys</span>(dh, alicePrivateKey, alicePublicKey);
+        
+        <span class="comment">// Generăm chei pentru Bob</span>
+        SecByteBlock bobPrivateKey, bobPublicKey;
+        <span class="function">generateKeys</span>(dh, bobPrivateKey, bobPublicKey);
+
+        <span class="comment">// Calculăm cheia comună pentru Alice</span>
+        SecByteBlock aliceSharedKey = <span class="function">computeSharedKey</span>(dh, alicePrivateKey, bobPublicKey);
+        
+        <span class="comment">// Calculăm cheia comună pentru Bob</span>
+        SecByteBlock bobSharedKey = <span class="function">computeSharedKey</span>(dh, bobPrivateKey, alicePublicKey);
+
+        <span class="comment">// Conversia cheilor în hexazecimal pentru afișare</span>
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Cheia privată Alice (hex): "</span> &lt;&lt; <span class="function">keyToHex</span>(alicePrivateKey) &lt;&lt; <span class="function">endl</span>;
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Cheia publică Alice (hex): "</span> &lt;&lt; <span class="function">keyToHex</span>(alicePublicKey) &lt;&lt; <span class="function">endl</span>;
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Cheia comună Alice (hex): "</span> &lt;&lt; <span class="function">keyToHex</span>(aliceSharedKey) &lt;&lt; <span class="function">endl</span>;
+        
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Cheia privată Bob (hex): "</span> &lt;&lt; <span class="function">keyToHex</span>(bobPrivateKey) &lt;&lt; <span class="function">endl</span>;
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Cheia publică Bob (hex): "</span> &lt;&lt; <span class="function">keyToHex</span>(bobPublicKey) &lt;&lt; <span class="function">endl</span>;
+        <span class="function">cout</span> &lt;&lt; <span class="string">"Cheia comună Bob (hex): "</span> &lt;&lt; <span class="function">keyToHex</span>(bobSharedKey) &lt;&lt; <span class="function">endl</span>;
+
+        <span class="keyword">return</span> <span class="number">0</span>;
+    }
+</code></pre>
+</div>
+<h2>Codul Python:</h2>
+        <button class="accordion">Diffie-Hellman</button>
+        <div class="panel">
+            <pre><code>
+    <span class="keyword">from</span> cryptography.hazmat.primitives.asymmetric <span class="keyword">import</span> dh
+    <span class="keyword">from</span> cryptography.hazmat.primitives <span class="keyword">import</span> serialization
+    <span class="keyword">from</span> cryptography.hazmat.backends <span class="keyword">import</span> default_backend
+    <span class="keyword">import</span> binascii
+
+    <span class="comment"># Funcție pentru generarea cheilor (privată și publică) folosind parametrii DH</span>
+    <span class="keyword">def</span> <span class="function">generate_keys</span>(<span class="keyword">parameters</span>):
+        <span class="comment"># Generăm cheia privată pentru utilizare în schimb</span>
+        <span class="keyword">private_key</span> = parameters.generate_private_key()
+        <span class="keyword">public_key</span> = private_key.public_key()
+        <span class="keyword">return</span> private_key, public_key
+
+    <span class="comment"># Funcție pentru calcularea cheii comune</span>
+    <span class="keyword">def</span> <span class="function">compute_shared_key</span>(<span class="keyword">private_key</span>, <span class="keyword">other_public_key</span>):
+        <span class="comment"># Generăm cheia comună</span>
+        <span class="keyword">shared_key</span> = private_key.exchange(other_public_key)
+        <span class="keyword">return</span> shared_key
+
+    <span class="comment"># Funcție pentru a converti o cheie în hexazecimal pentru a o putea vizualiza</span>
+    <span class="keyword">def</span> <span class="function">key_to_hex</span>(<span class="keyword">key</span>):
+        <span class="keyword">return</span> binascii.hexlify(key).decode()
+
+    <span class="comment"># Funcția principală</span>
+    <span class="keyword">def</span> <span class="function">main</span>():
+        <span class="comment"># Definirea parametrilor pentru DH</span>
+        <span class="keyword">parameters</span> = dh.generate_parameters(generator=<span class="number">2</span>, key_size=<span class="number">2048</span>, backend=default_backend())
+
+        <span class="comment"># Generăm chei pentru Alice</span>
+        <span class="keyword">alice_private_key</span>, <span class="keyword">alice_public_key</span> = <span class="function">generate_keys</span>(parameters)
+
+        <span class="comment"># Generăm chei pentru Bob</span>
+        <span class="keyword">bob_private_key</span>, <span class="keyword">bob_public_key</span> = <span class="function">generate_keys</span>(parameters)
+
+        <span class="comment"># Calculăm cheile comune</span>
+        <span class="keyword">alice_shared_key</span> = <span class="function">compute_shared_key</span>(alice_private_key, bob_public_key)
+        <span class="keyword">bob_shared_key</span> = <span class="function">compute_shared_key</span>(bob_private_key, alice_public_key)
+
+        <span class="comment"># Conversia cheilor în hexazecimal pentru afișare</span>
+        <span class="function">print</span>(<span class="string">"Cheia privată Alice (hex): "</span>, <span class="function">key_to_hex</span>(alice_private_key.private_bytes(
+            encoding=serialization.Encoding.DER,
+            format=serialization.PrivateFormat.TraditionalOpenSSL)))
+        
+        <span class="function">print</span>(<span class="string">"Cheia publică Alice (hex): "</span>, <span class="function">key_to_hex</span>(alice_public_key.public_bytes(
+            encoding=serialization.Encoding.DER,
+            format=serialization.PublicFormat.SubjectPublicKeyInfo)))
+        
+        <span class="function">print</span>(<span class="string">"Cheia comună Alice (hex): "</span>, <span class="function">key_to_hex</span>(alice_shared_key))
+
+        <span class="function">print</span>(<span class="string">"Cheia privată Bob (hex): "</span>, <span class="function">key_to_hex</span>(bob_private_key.private_bytes(
+            encoding=serialization.Encoding.DER,
+            format=serialization.PrivateFormat.TraditionalOpenSSL)))
+        
+        <span class="function">print</span>(<span class="string">"Cheia publică Bob (hex): "</span>, <span class="function">key_to_hex</span>(bob_public_key.public_bytes(
+            encoding=serialization.Encoding.DER,
+            format=serialization.PublicFormat.SubjectPublicKeyInfo)))
+        
+        <span class="function">print</span>(<span class="string">"Cheia comună Bob (hex): "</span>, <span class="function">key_to_hex</span>(bob_shared_key))
+
+    <span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+        <span class="function">main</span>()
+</code></pre>
+</div>
+</div>
+
 </div>
 </div>
     <script>
