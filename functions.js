@@ -302,58 +302,73 @@ function blowfishCriptDecript(input)
 function eccCriptDecript(input)
 {
     let output='';
-    // Definim structura pentru a reprezenta punctele pe curba eliptică
+    // Structură pentru a reprezenta punctele pe curba eliptică
     class Point {
         constructor(x, y) {
-            this.x = BigInt(x);
-            this.y = BigInt(y);
+            this.x = x;
+            this.y = y;
         }
     }
 
     // Parametrii curbei eliptice
     class CurveParams {
         constructor(a, b, p) {
-            this.a = BigInt(a);
-            this.b = BigInt(b);
-            this.p = BigInt(p);
+            this.a = a;
+            this.b = b;
+            this.p = p;
         }
     }
 
-    // Funcție pentru calcularea inversului modular
+    // Funcție pentru a calcula inversul modular folosind Algoritmul Euclidian Extins
     function modInverse(k, p) {
-        k = k % p;
-        for (let x = BigInt(1); x < p; x++) {
-            if ((k * x) % p === BigInt(1)) {
-                return x;
-            }
+        let t = 0, newT = 1;
+        let r = p, newR = k;
+
+        while (newR !== 0) {
+            let quotient = Math.floor(r / newR);
+
+            let tempT = newT;
+            newT = t - quotient * newT;
+            t = tempT;
+
+            let tempR = newR;
+            newR = r - quotient * newR;
+            r = tempR;
         }
-        return BigInt(-1); // Inversă nu există
+
+        if (r > 1) return -1;  // Inversă nu există
+        if (t < 0) t += p;     // Ajustăm valoarea t dacă este negativă
+
+        return t;
     }
 
-    // Adunarea a două puncte pe o curbă eliptică
+    // Funcția pentru adunarea a două puncte pe o curbă eliptică
     function addPoints(P, Q, curve) {
-        let s, x_r, y_r;
-
         if (P.x === Q.x && P.y === Q.y) {
-            s = (BigInt(3) * P.x * P.x + curve.a) * modInverse(BigInt(2) * P.y, curve.p) % curve.p;
+            let s = ((3 * P.x * P.x + curve.a) * modInverse(2 * P.y, curve.p)) % curve.p;
+            let x_r = (s * s - 2 * P.x) % curve.p;
+            let y_r = (s * (P.x - x_r) - P.y) % curve.p;
+
+            if (x_r < 0) x_r += curve.p;
+            if (y_r < 0) y_r += curve.p;
+
+            return new Point(x_r, y_r);
         } else {
-            s = (Q.y - P.y) * modInverse(Q.x - P.x, curve.p) % curve.p;
+            let s = ((Q.y - P.y) * modInverse(Q.x - P.x, curve.p)) % curve.p;
+            let x_r = (s * s - P.x - Q.x) % curve.p;
+            let y_r = (s * (P.x - x_r) - P.y) % curve.p;
+
+            if (x_r < 0) x_r += curve.p;
+            if (y_r < 0) y_r += curve.p;
+
+            return new Point(x_r, y_r);
         }
-
-        x_r = (s * s - P.x - Q.x) % curve.p;
-        y_r = (s * (P.x - x_r) - P.y) % curve.p;
-
-        if (x_r < 0) x_r += curve.p;
-        if (y_r < 0) y_r += curve.p;
-
-        return new Point(x_r, y_r);
     }
 
     // Funcția pentru înmulțirea unui punct cu un scalar pe o curbă eliptică
     function scalarMult(P, k, curve) {
         let result = P;
-        k = BigInt(k) - BigInt(1); // Deja avem un punct, deci repetăm k-1 ori adunarea
-
+        k = k - 1; // Deja avem un punct, deci repetăm k-1 ori adunarea
         while (k > 0) {
             result = addPoints(result, P, curve);
             k--;
@@ -364,41 +379,39 @@ function eccCriptDecript(input)
     // Funcția principală
     function main() {
         // Definim o curbă eliptică simplă: y^2 = x^3 + ax + b (mod p)
-        let curve = new CurveParams(2, 3, 97); // Exemplu: y^2 = x^3 + 2x + 3 (mod 97)
+        const curve = new CurveParams(2, 3, 97); // Exemplu: y^2 = x^3 + 2x + 3 (mod 97)
 
         // Punctul generator G de pe curbă
-        let G = new Point(3, 6); // Exemplu de punct de pe curbă
+        const G = new Point(3, 6); // Exemplu de punct de pe curbă
 
         // Cheia privată a destinatarului
-        let privateKey = 7; // Exemplu de cheie privată
+        const privateKey = 7; // Exemplu de cheie privată
 
         // Cheia publică a destinatarului: PublicKey = privateKey * G
-        let publicKey = scalarMult(G, privateKey, curve);
+        const publicKey = scalarMult(G, privateKey, curve);
 
         // Expeditorul alege o cheie aleatorie k pentru criptare
-        let k = 5; // Cheie aleatorie
+        const k = 5; // Cheie aleatorie
 
         // Calcularea punctului R = k * G
-        let R = scalarMult(G, k, curve);
+        const R = scalarMult(G, k, curve);
 
         // Mesajul de criptat (reprezentat ca punct pe curba eliptică)
-        let M = new Point(10, 22); // Exemplu de mesaj ca punct de pe curbă
+        const M = new Point(10, 22); // Exemplu de mesaj ca punct de pe curbă
 
         // Criptarea mesajului: C1 = R, C2 = M + k * publicKey
-        let C1 = R;
-        let C2 = addPoints(M, scalarMult(publicKey, k, curve), curve);
-
-        console.log("Mesaj criptat:");
-        console.log(`C1: (${C1.x}, ${C1.y})`);
-        console.log(`C2: (${C2.x}, ${C2.y})`);
+        const C1 = R;
+        const C2 = addPoints(M, scalarMult(publicKey, k, curve), curve);
 
         // Decriptarea mesajului: M = C2 - privateKey * C1
-        let decryptedMessage = addPoints(C2, scalarMult(C1, privateKey, curve), curve);
+        const decryptedMessage = addPoints(C2, scalarMult(C1, privateKey, curve), curve);
 
-        console.log(`Mesaj decriptat: (${decryptedMessage.x}, ${decryptedMessage.y})`);
+        if(state === 'cript') output = "C1: (" + C1.x + ", " + C1.y + "), C2: (" + C2.x + ", " + C2.y + ")";
+        else if(state === 'decript') output = decryptedMessage.x + ", " + decryptedMessage.y;
     }
 
-    // Apelare funcție principală
+    // Executăm funcția principală
     main();
 
+    document.getElementById('eccOutput').value = output;
 }
