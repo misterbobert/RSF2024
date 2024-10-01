@@ -122,13 +122,22 @@ function hexaCriptDecript(input)
         const key = prompt("Introdu cheia (un singur caracter):");  // Citim cheia pentru criptare
         
         // Criptăm mesajul
-        const encrypted = hexaEncrypt(message, key);
+        let encrypted = '';
         
         // Decriptăm mesajul
-        const decrypted = hexaDecrypt(encrypted, key);
+        let decrypted = '';
 
-        if(state === 'cript') output = encrypted;
-        else if(state === 'decript') output = decrypted;
+        if(state === 'cript') 
+        {
+            encrypted = hexaEncrypt(message, key);
+            decrypted = hexaDecrypt(encrypted, key);
+            output = encrypted;
+        }
+        else if(state === 'decript') 
+        {
+            decrypted = hexaDecrypt(input, key);
+            output = decrypted;
+        }
     }
 
     // Apelăm funcția principală
@@ -211,13 +220,22 @@ function rsaCriptDecript(input)
         const mesaj = input;
 
         // Criptarea mesajului: C = M^e % n
-        const criptat = modExp(Number(mesaj), e, n);
+        let criptat = '';
 
         // Decriptarea mesajului: M = C^d % n
-        const decriptat = modExp(criptat, d, n);
+        let decriptat = '';
 
-        if(state === 'cript') output = criptat;
-        else if(state === 'decript') output = decriptat;
+        if(state === 'cript') 
+        {
+            criptat = modExp(Number(mesaj), e, n);
+            decriptat = modExp(criptat, d, n);
+            output = criptat;
+        }
+        else if(state === 'decript')
+        {
+            decriptat = modExp(input, d, n);
+            output = decriptat;
+        }
     }
 
     // Apelarea funcției principale
@@ -465,13 +483,23 @@ function aesCriptDecript(inputOut)
         const input = strToUint8Array(inputOut); // 16 bytes
 
         // Criptare
-        const encryptedOutput = await aesEncrypt(input, key);
+        let encryptedOutput = '';
 
         // Decriptare
-        const decryptedOutput = await aesDecrypt(encryptedOutput, key);
+        let decryptedOutput = '';
 
-        if(state === 'cript') document.getElementById('aesOutput').value = bytesToHex(encryptedOutput);
-        else if(state === 'decript') document.getElementById('aesOutput').value = decryptedOutput;
+        if(state === 'cript') 
+        {
+            encryptedOutput = await aesEncrypt(input, key);
+            decryptedOutput = await aesDecrypt(encryptedOutput, key);
+            console.log(decryptedOutput);
+            document.getElementById('aesOutput').value = bytesToHex(encryptedOutput);
+        }
+        else if(state === 'decript') 
+        {
+            decryptedOutput = await aesDecrypt(inputOut, key);
+            document.getElementById('aesOutput').value = decryptedOutput;
+        }
     }
 
     // Execută funcția principală
