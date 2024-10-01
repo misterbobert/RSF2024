@@ -214,4 +214,20 @@ main{
     .bottom{
         margin-top: 0;
     }
-}
+}.center {
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+  }.centerr {
+    line-height: 200px;
+    height: 200px; 
+    text-align: center;
+  }
+  
+  /* If the text has multiple lines, add the following: */
+  .center p {
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle;
+  }
