@@ -42,8 +42,18 @@ function ceasarCriptDecript(input)
     let text = input; // Textul de criptat
     let shift = 4; // Cheia de criptare (deplasarea)
 
-    let encrypted = encrypt(text, shift);
-    let decrypted = decrypt(encrypted, shift);
+    let encrypted = '';
+    let decrypted = '';
+
+    if(state === 'cript')
+    {
+        encrypted = encrypt(text, shift);
+        decrypted = decrypt(encrypted, shift);
+    }
+    else if(state === 'decript') 
+    {
+        decrypted = decrypt(input, shift);
+    }
 
     if(state === 'cript') output = encrypted;
     else if(state === 'decript') output = decrypted;
@@ -358,6 +368,102 @@ function blowfishCriptDecript(input)
     document.getElementById('blowfishOutput').value = output;
 }
 
+function aesCriptDecript(inputOut)
+{
+    let output='';
+
+    // Funcție pentru a genera un vector de inițializare (IV) random
+    function generateIV() {
+        return window.crypto.getRandomValues(new Uint8Array(16));
+    }
+
+    // Funcție pentru a converti un string în un array de bytes
+    function strToUint8Array(str) {
+        const encoder = new TextEncoder();
+        return encoder.encode(str);
+    }
+
+    // Funcție pentru a converti bytes în hex
+    function bytesToHex(bytes) {
+        return Array.from(bytes).map(b => ('0' + b.toString(16)).slice(-2)).join('');
+    }
+
+    // Funcție pentru criptare AES
+    async function aesEncrypt(input, key) {
+        const iv = generateIV(); // Generăm un IV random
+        const encodedKey = await window.crypto.subtle.importKey(
+            "raw",
+            key,
+            { name: "AES-CBC" },
+            false,
+            ["encrypt"]
+        );
+
+        const encrypted = await window.crypto.subtle.encrypt(
+            { name: "AES-CBC", iv: iv },
+            encodedKey,
+            input
+        );
+
+        // Adăugăm IV-ul la output pentru decriptare
+        const combinedOutput = new Uint8Array(iv.length + encrypted.byteLength);
+        combinedOutput.set(iv, 0);
+        combinedOutput.set(new Uint8Array(encrypted), iv.length);
+        
+        return combinedOutput;
+    }
+
+    // Funcție pentru decriptare AES
+    async function aesDecrypt(encrypted, key) {
+        const iv = encrypted.slice(0, 16); // Extragem IV-ul
+        const encryptedData = encrypted.slice(16); // Extragem datele criptate
+
+        const encodedKey = await window.crypto.subtle.importKey(
+            "raw",
+            key,
+            { name: "AES-CBC" },
+            false,
+            ["decrypt"]
+        );
+
+        const decrypted = await window.crypto.subtle.decrypt(
+            { name: "AES-CBC", iv: iv },
+            encodedKey,
+            encryptedData
+        );
+
+        return new TextDecoder().decode(decrypted);
+    }
+
+    // Funcție principală
+    async function main() {
+        // Cheia trebuie să fie exact 16 octeți pentru AES-128
+        const key = new Uint8Array([
+            0x01, 0x02, 0x03, 0x04,
+            0x05, 0x06, 0x07, 0x08,
+            0x09, 0x0A, 0x0B, 0x0C,
+            0x0D, 0x0E, 0x0F, 0x10
+        ]);
+
+        // Input-ul trebuie să fie de 16 bytes
+        const input = strToUint8Array(inputOut); // 16 bytes
+
+        // Criptare
+        const encryptedOutput = await aesEncrypt(input, key);
+
+        // Decriptare
+        const decryptedOutput = await aesDecrypt(encryptedOutput, key);
+
+        if(state === 'cript') document.getElementById('aesOutput').value = bytesToHex(encryptedOutput);
+        else if(state === 'decript') document.getElementById('aesOutput').value = decryptedOutput;
+    }
+
+    // Execută funcția principală
+    main();
+
+    document.getElementById('aesOutput').value = output;
+}
+
 function eccCriptDecript(input)
 {
     let output='';
@@ -450,7 +556,7 @@ function eccCriptDecript(input)
         const publicKey = scalarMult(G, privateKey, curve);
 
         // Expeditorul alege o cheie aleatorie k pentru criptare
-        const k = 5; // Cheie aleatorie
+        const k = input; // Cheie aleatorie
 
         // Calcularea punctului R = k * G
         const R = scalarMult(G, k, curve);
@@ -473,4 +579,14 @@ function eccCriptDecript(input)
     main();
 
     document.getElementById('eccOutput').value = output;
+}
+
+function twofishCriptDecript(input)
+{
+    let output='';
+}
+
+function desCriptDecript(inputOut)
+{
+    let output='';
 }

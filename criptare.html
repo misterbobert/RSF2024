@@ -81,7 +81,7 @@
         <input type="button" value="Criptează" name="blowfishCriptDecript" id="blowfishCriptDecript" onclick="blowfishCriptDecript(JSON.parse(document.getElementById('blowfishInput').value))">
     </div>
     <div id="aesDiv" style="display: none;">
-      <p>AES</p><br>
+      <p>AES, mesajul trebuie sa aiba 16 caractere</p><br>
       <input type="text" id="aesInput" name="aesInput">
       <input type="text" id="aesOutput" name="aesOutput" readonly><br>
       <button onclick="switchState()">Schimbă</button>
@@ -108,13 +108,6 @@
       <button onclick="switchState()">Schimbă</button>
       <input type="button" value="Criptează" name="desCriptDecript" id="desCriptDecript" onclick="desCriptDecript(document.getElementById('desInput').value)">
     </div>
-    <div id="diffieDiv" style="display: none;">
-      <p>Diffie-Hellman</p><br>
-      <input type="text" id="diffieInput" name="diffieInput">
-      <input type="text" id="diffieOutput" name="diffieOutput" readonly><br>
-      <button onclick="switchState()">Schimbă</button>
-      <input type="button" value="Criptează" name="diffieCriptDecript" id="diffieCriptDecript" onclick="diffieCriptDecript(document.getElementById('diffieInput').value)">
-    </div>
 </div>
 </div>
     <script>
@@ -127,7 +120,6 @@
           document.getElementById('eccDiv').style.display = 'none';
           document.getElementById('twofishDiv').style.display = 'none';
           document.getElementById('desDiv').style.display = 'none';
-          document.getElementById('diffieDiv').style.display = 'none';
         }
         function hexa(){
           document.getElementById('ceasarDiv').style.display = 'none';
@@ -138,7 +130,6 @@
           document.getElementById('eccDiv').style.display = 'none';
           document.getElementById('twofishDiv').style.display = 'none';
           document.getElementById('desDiv').style.display = 'none';
-          document.getElementById('diffieDiv').style.display = 'none';
         }
         function rsa(){
           document.getElementById('ceasarDiv').style.display = 'none';
@@ -149,7 +140,6 @@
           document.getElementById('eccDiv').style.display = 'none';
           document.getElementById('twofishDiv').style.display = 'none';
           document.getElementById('desDiv').style.display = 'none';
-          document.getElementById('diffieDiv').style.display = 'none';
         }
         function blowfish(){
           document.getElementById('ceasarDiv').style.display = 'none';
@@ -160,7 +150,6 @@
           document.getElementById('eccDiv').style.display = 'none';
           document.getElementById('twofishDiv').style.display = 'none';
           document.getElementById('desDiv').style.display = 'none';
-          document.getElementById('diffieDiv').style.display = 'none';
         }
         function aes(){
           document.getElementById('ceasarDiv').style.display = 'none';
@@ -171,7 +160,6 @@
           document.getElementById('eccDiv').style.display = 'none';
           document.getElementById('twofishDiv').style.display = 'none';
           document.getElementById('desDiv').style.display = 'none';
-          document.getElementById('diffieDiv').style.display = 'none';
         }
         function ecc(){
           document.getElementById('ceasarDiv').style.display = 'none';
@@ -182,7 +170,6 @@
           document.getElementById('eccDiv').style.display = 'block';
           document.getElementById('twofishDiv').style.display = 'none';
           document.getElementById('desDiv').style.display = 'none';
-          document.getElementById('diffieDiv').style.display = 'none';
         }
         function twofish(){
           document.getElementById('ceasarDiv').style.display = 'none';
@@ -193,7 +180,6 @@
           document.getElementById('eccDiv').style.display = 'none';
           document.getElementById('twofishDiv').style.display = 'block';
           document.getElementById('desDiv').style.display = 'none';
-          document.getElementById('diffieDiv').style.display = 'none';
         }
         function des(){
           document.getElementById('ceasarDiv').style.display = 'none';
@@ -204,18 +190,6 @@
           document.getElementById('eccDiv').style.display = 'none';
           document.getElementById('twofishDiv').style.display = 'none';
           document.getElementById('desDiv').style.display = 'block';
-          document.getElementById('diffieDiv').style.display = 'none';
-        }
-        function diffie(){
-          document.getElementById('ceasarDiv').style.display = 'none';
-          document.getElementById('hexaDiv').style.display = 'none';
-          document.getElementById('rsaDiv').style.display = 'none';
-          document.getElementById('blowfishDiv').style.display = 'none';
-          document.getElementById('aesDiv').style.display = 'none';
-          document.getElementById('eccDiv').style.display = 'none';
-          document.getElementById('twofishDiv').style.display = 'none';
-          document.getElementById('desDiv').style.display = 'none';
-          document.getElementById('diffieDiv').style.display = 'block';
         }
     </script>
 </body>
