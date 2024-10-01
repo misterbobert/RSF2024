@@ -36,75 +36,79 @@
     <div class="card center "style="width: 60%; background-color:#28242c;padding:30px">
       <div class="card-body"> 
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-           Selectează algoritmul de criptare
-        </button>
-        <ul class="dropdown-menu">
-          <li><button onclick="ceasar()">Cifrul lui Ceasar</button></li>
-          <li><button onclick="hexa()">Hexa</button></li>
-          <li><button onclick="rsa()">RSA</button></li>
-          <li><button onclick="blowfish()">Blowfish</button></li>
-          <li><button onclick="aes()">AES</button></li>
-          <li><button onclick="ecc()">ECC</button></li>
-          <li><button onclick="twofish()">TwoFish</button></li>
-        </ul>
-    </div>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Selectează algoritmul de criptare
+    </button>
+    <ul class="dropdown-menu">
+        <div class="text-center">
+            <li><button class="dropdown-item" onclick="ceasar()">Cifrul lui Ceasar</button></li>
+            <li><button class="dropdown-item" onclick="hexa()">Hexa</button></li>
+            <li><button class="dropdown-item" onclick="rsa()">RSA</button></li>
+            <li><button class="dropdown-item" onclick="blowfish()">Blowfish</button></li>
+            <li><button class="dropdown-item" onclick="aes()">AES</button></li>
+            <li><button class="dropdown-item" onclick="ecc()">ECC</button></li>
+            <li><button class="dropdown-item" onclick="twofish()">TwoFish</button></li>
+        </div>
+    </ul>
+</div>
+
 
     <div id="ceasarDiv" style="display: none;">
       <p>Ceasar, cheia este: 4</p><br>
       <input type="text" class="status" readonly value="Se criptează">
       <input type="text" id="ceasarInput" name="ceasarInput">
       <input type="text" id="ceasarOutput" name="ceasarOutput" readonly><br>
-      <button onclick="switchState()">Schimbă</button>
-      <input type="button" value="Criptează" name="ceasarCriptDecript" id="ceasarCriptDecript" onclick="ceasarCriptDecript(document.getElementById('ceasarInput').value)">
+      <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+      <input type="button" class="btn btn-secondary" value="Criptează" name="ceasarCriptDecript" id="ceasarCriptDecript" onclick="ceasarCriptDecript(document.getElementById('ceasarInput').value)">
     </div>
     <div id="hexaDiv" style="display: none;">
       <p>Hexa</p><br>
       <input type="text" class="status" readonly value="Se criptează">
       <input type="text" id="hexaInput" name="hexaInput">
       <input type="text" id="hexaOutput" name="hexaOutput" readonly><br>
-      <button onclick="switchState()">Schimbă</button>
-      <input type="button" value="Criptează" name="hexaCriptDecript" id="hexaCriptDecript" onclick="hexaCriptDecript(document.getElementById('hexaInput').value)">
+      <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+      <input type="button" class="btn btn-secondary" value="Criptează" name="hexaCriptDecript" id="hexaCriptDecript" onclick="hexaCriptDecript(document.getElementById('hexaInput').value)">
     </div>
     <div id="rsaDiv" style="display: none;">
         <p>RSA, un număr mai mic decât: 3233</p><br>
         <input type="text" class="status" readonly value="Se criptează">
         <input type="text" id="rsaInput" name="rsaInput">
         <input type="text" id="rsaOutput" name="rsaOutput" readonly><br>
-        <button onclick="switchState()">Schimbă</button>
-        <input type="button" value="Criptează" name="rsaCriptDecript" id="rsaCriptDecript" onclick="rsaCriptDecript(document.getElementById('rsaInput').value)">
+        <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+        <input type="button" class="btn btn-secondary" value="Criptează" name="rsaCriptDecript" id="rsaCriptDecript" onclick="rsaCriptDecript(document.getElementById('rsaInput').value)">
     </div>
     <div id="blowfishDiv" style="display: none;">
       <p>Blowfish, cheia este: [75, 101, 121, 83, 101, 99, 114, 101, 116] (KeySecret scrisă în ASCII)</p><br>
       <input type="text" class="status" readonly value="Se criptează">
       <input type="text" id="blowfishInput" name="blowfishInput">
       <input type="text" id="blowfishOutput" name="blowfishOutput" readonly><br>
-      <button onclick="switchState()">Schimbă</button>
-      <input type="button" value="Criptează" name="blowfishCriptDecript" id="blowfishCriptDecript" onclick="blowfishCriptDecript(JSON.parse(document.getElementById('blowfishInput').value))">
+      <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+      <input type="button" class="btn btn-secondary" value="Criptează" name="blowfishCriptDecript" id="blowfishCriptDecript" onclick="blowfishCriptDecript(JSON.parse(document.getElementById('blowfishInput').value))">
     </div>
     <div id="aesDiv" style="display: none;">
       <p>AES, mesajul trebuie sa aiba 16 caractere</p><br>
       <input type="text" class="status" readonly value="Se criptează">
       <input type="text" id="aesInput" name="aesInput">
       <input type="text" id="aesOutput" name="aesOutput" readonly><br>
-      <button onclick="switchState()">Schimbă</button>
-      <input type="button" value="Criptează" name="aesCriptDecript" id="aesCriptDecript" onclick="aesCriptDecript(document.getElementById('aesInput').value)">
+      <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+      <input type="button" class="btn btn-secondary" value="Criptează" name="aesCriptDecript" id="aesCriptDecript" onclick="aesCriptDecript(document.getElementById('aesInput').value)">
     </div>
     <div id="eccDiv" style="display: none;">
       <p>ECC, cheia este: 5</p><br>
       <input type="text" class="status" readonly value="Se criptează">
       <input type="text" id="eccInput" name="eccInput">
       <input type="text" id="eccOutput" name="eccOutput" readonly><br>
-      <button onclick="switchState()">Schimbă</button>
-      <input type="button" value="Criptează" name="eccCriptDecript" id="eccCriptDecript" onclick="eccCriptDecript(document.getElementById('eccInput').value)">
+      <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+      <input type="button" class="btn btn-secondary" value="Criptează" name="eccCriptDecript" id="eccCriptDecript" onclick="eccCriptDecript(document.getElementById('eccInput').value)">
     </div>
     <div id="twofishDiv" style="display: none;">
       <p>Twofish</p><br>
       <input type="text" class="status" readonly value="Se criptează">
       <input type="text" id="twofishInput" name="twofishInput">
       <input type="text" id="twofishOutput" name="twofishOutput" readonly><br>
-      <button onclick="switchState()">Schimbă</button>
-      <input type="button" value="Criptează" name="twofishCriptDecript" id="twofishCriptDecript" onclick="twofishCriptDecript(document.getElementById('twofishInput').value)">
+      <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+      <input type="button" class="btn btn-secondary" value="Criptează" name="twofishCriptDecript" id="twofishCriptDecript" onclick="twofishCriptDecript(document.getElementById('twofishInput').value)">
     </div>
 </div>
 </div>
