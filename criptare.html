@@ -44,82 +44,178 @@
           <li><button onclick="hexa()">Hexa</button></li>
           <li><button onclick="rsa()">RSA</button></li>
           <li><button onclick="blowfish()">Blowfish</button></li>
+          <li><button onclick="aes()">AES</button></li>
           <li><button onclick="ecc()">ECC</button></li>
+          <li><button onclick="twofish()">TwoFish</button></li>
+          <li><button onclick="des()">DES</button></li>
+          <li><button onclick="diffie()">Diffie-Hellman</button></li>
         </ul>
     </div>
 
     <div id="ceasarDiv" style="display: none;">
-        <p>Ceasar, cheia este: 4</p>
+        <p>Ceasar, cheia este: 4</p><br>
         <input type="text" id="ceasarInput" name="ceasarInput">
-        <input type="text" id="ceasarOutput" name="ceasarOutput" readonly>
+        <input type="text" id="ceasarOutput" name="ceasarOutput" readonly><br>
         <button onclick="switchState()">Schimbă</button>
         <input type="button" value="Criptează" name="ceasarCriptDecript" id="ceasarCriptDecript" onclick="ceasarCriptDecript(document.getElementById('ceasarInput').value)">
     </div>
     <div id="hexaDiv" style="display: none;">
-      <p>Hexa</p>
+      <p>Hexa</p><br>
       <input type="text" id="hexaInput" name="hexaInput">
-      <input type="text" id="hexaOutput" name="hexaOutput" readonly>
+      <input type="text" id="hexaOutput" name="hexaOutput" readonly><br>
       <button onclick="switchState()">Schimbă</button>
       <input type="button" value="Criptează" name="hexaCriptDecript" id="hexaCriptDecript" onclick="hexaCriptDecript(document.getElementById('hexaInput').value)">
     </div>
     <div id="rsaDiv" style="display: none;">
-        <p>RSA, un număr mai mic decât: 3233</p>
+        <p>RSA, un număr mai mic decât: 3233</p><br>
         <input type="text" id="rsaInput" name="rsaInput">
-        <input type="text" id="rsaOutput" name="rsaOutput" readonly>
+        <input type="text" id="rsaOutput" name="rsaOutput" readonly><br>
         <button onclick="switchState()">Schimbă</button>
         <input type="button" value="Criptează" name="rsaCriptDecript" id="rsaCriptDecript" onclick="rsaCriptDecript(document.getElementById('rsaInput').value)">
     </div>
     <div id="blowfishDiv" style="display: none;">
-        <p>Blowfish, cheia este: [75, 101, 121, 83, 101, 99, 114, 101, 116] (KeySecret scrisă în ASCII)</p>
+        <p>Blowfish, cheia este: [75, 101, 121, 83, 101, 99, 114, 101, 116] (KeySecret scrisă în ASCII)</p><br>
         <input type="text" id="blowfishInput" name="blowfishInput">
-        <input type="text" id="blowfishOutput" name="blowfishOutput" readonly>
+        <input type="text" id="blowfishOutput" name="blowfishOutput" readonly><br>
         <button onclick="switchState()">Schimbă</button>
         <input type="button" value="Criptează" name="blowfishCriptDecript" id="blowfishCriptDecript" onclick="blowfishCriptDecript(JSON.parse(document.getElementById('blowfishInput').value))">
     </div>
+    <div id="aesDiv" style="display: none;">
+      <p>AES</p><br>
+      <input type="text" id="aesInput" name="aesInput">
+      <input type="text" id="aesOutput" name="aesOutput" readonly><br>
+      <button onclick="switchState()">Schimbă</button>
+      <input type="button" value="Criptează" name="aesCriptDecript" id="aesCriptDecript" onclick="aesCriptDecript(document.getElementById('aesInput').value)">
+    </div>
     <div id="eccDiv" style="display: none;">
-        <p>ECC, cheia este: 5</p>
+        <p>ECC, cheia este: 5</p><br>
         <input type="text" id="eccInput" name="eccInput">
-        <input type="text" id="eccOutput" name="eccOutput" readonly>
+        <input type="text" id="eccOutput" name="eccOutput" readonly><br>
         <button onclick="switchState()">Schimbă</button>
         <input type="button" value="Criptează" name="eccCriptDecript" id="eccCriptDecript" onclick="eccCriptDecript(document.getElementById('eccInput').value)">
+    </div>
+    <div id="twofishDiv" style="display: none;">
+      <p>Twofish</p><br>
+      <input type="text" id="twofishInput" name="twofishInput">
+      <input type="text" id="twofishOutput" name="twofishOutput" readonly><br>
+      <button onclick="switchState()">Schimbă</button>
+      <input type="button" value="Criptează" name="twofishCriptDecript" id="twofishCriptDecript" onclick="twofishCriptDecript(document.getElementById('twofishInput').value)">
+    </div>
+    <div id="desDiv" style="display: none;">
+      <p>DES</p><br>
+      <input type="text" id="desInput" name="desInput">
+      <input type="text" id="desOutput" name="desOutput" readonly><br>
+      <button onclick="switchState()">Schimbă</button>
+      <input type="button" value="Criptează" name="desCriptDecript" id="desCriptDecript" onclick="desCriptDecript(document.getElementById('desInput').value)">
+    </div>
+    <div id="diffieDiv" style="display: none;">
+      <p>Diffie-Hellman</p><br>
+      <input type="text" id="diffieInput" name="diffieInput">
+      <input type="text" id="diffieOutput" name="diffieOutput" readonly><br>
+      <button onclick="switchState()">Schimbă</button>
+      <input type="button" value="Criptează" name="diffieCriptDecript" id="diffieCriptDecript" onclick="diffieCriptDecript(document.getElementById('diffieInput').value)">
     </div>
 </div>
 </div>
     <script>
         function ceasar(){
-            document.getElementById('ceasarDiv').style.display = 'block';
-            document.getElementById('hexaDiv').style.display = 'none';
-            document.getElementById('rsaDiv').style.display = 'none';
-            document.getElementById('blowfishDiv').style.display = 'none';
-            document.getElementById('eccDiv').style.display = 'none';
+          document.getElementById('ceasarDiv').style.display = 'block';
+          document.getElementById('hexaDiv').style.display = 'none';
+          document.getElementById('rsaDiv').style.display = 'none';
+          document.getElementById('blowfishDiv').style.display = 'none';
+          document.getElementById('aesDiv').style.display = 'none';
+          document.getElementById('eccDiv').style.display = 'none';
+          document.getElementById('twofishDiv').style.display = 'none';
+          document.getElementById('desDiv').style.display = 'none';
+          document.getElementById('diffieDiv').style.display = 'none';
         }
         function hexa(){
-            document.getElementById('ceasarDiv').style.display = 'none';
-            document.getElementById('hexaDiv').style.display = 'block';
-            document.getElementById('rsaDiv').style.display = 'none';
-            document.getElementById('blowfishDiv').style.display = 'none';
-            document.getElementById('eccDiv').style.display = 'none';
+          document.getElementById('ceasarDiv').style.display = 'none';
+          document.getElementById('hexaDiv').style.display = 'block';
+          document.getElementById('rsaDiv').style.display = 'none';
+          document.getElementById('blowfishDiv').style.display = 'none';
+          document.getElementById('aesDiv').style.display = 'none';
+          document.getElementById('eccDiv').style.display = 'none';
+          document.getElementById('twofishDiv').style.display = 'none';
+          document.getElementById('desDiv').style.display = 'none';
+          document.getElementById('diffieDiv').style.display = 'none';
         }
         function rsa(){
-            document.getElementById('ceasarDiv').style.display = 'none';
-            document.getElementById('hexaDiv').style.display = 'none';
-            document.getElementById('rsaDiv').style.display = 'block';
-            document.getElementById('blowfishDiv').style.display = 'none';
-            document.getElementById('eccDiv').style.display = 'none';
+          document.getElementById('ceasarDiv').style.display = 'none';
+          document.getElementById('hexaDiv').style.display = 'none';
+          document.getElementById('rsaDiv').style.display = 'block';
+          document.getElementById('blowfishDiv').style.display = 'none';
+          document.getElementById('aesDiv').style.display = 'none';
+          document.getElementById('eccDiv').style.display = 'none';
+          document.getElementById('twofishDiv').style.display = 'none';
+          document.getElementById('desDiv').style.display = 'none';
+          document.getElementById('diffieDiv').style.display = 'none';
         }
         function blowfish(){
-            document.getElementById('ceasarDiv').style.display = 'none';
-            document.getElementById('hexaDiv').style.display = 'none';
-            document.getElementById('rsaDiv').style.display = 'none';
-            document.getElementById('blowfishDiv').style.display = 'block';
-            document.getElementById('eccDiv').style.display = 'none';
+          document.getElementById('ceasarDiv').style.display = 'none';
+          document.getElementById('hexaDiv').style.display = 'none';
+          document.getElementById('rsaDiv').style.display = 'none';
+          document.getElementById('blowfishDiv').style.display = 'block';
+          document.getElementById('aesDiv').style.display = 'none';
+          document.getElementById('eccDiv').style.display = 'none';
+          document.getElementById('twofishDiv').style.display = 'none';
+          document.getElementById('desDiv').style.display = 'none';
+          document.getElementById('diffieDiv').style.display = 'none';
+        }
+        function aes(){
+          document.getElementById('ceasarDiv').style.display = 'none';
+          document.getElementById('hexaDiv').style.display = 'none';
+          document.getElementById('rsaDiv').style.display = 'none';
+          document.getElementById('blowfishDiv').style.display = 'none';
+          document.getElementById('aesDiv').style.display = 'block';
+          document.getElementById('eccDiv').style.display = 'none';
+          document.getElementById('twofishDiv').style.display = 'none';
+          document.getElementById('desDiv').style.display = 'none';
+          document.getElementById('diffieDiv').style.display = 'none';
         }
         function ecc(){
-            document.getElementById('ceasarDiv').style.display = 'none';
-            document.getElementById('hexaDiv').style.display = 'none';
-            document.getElementById('rsaDiv').style.display = 'none';
-            document.getElementById('blowfishDiv').style.display = 'none';
-            document.getElementById('eccDiv').style.display = 'block';
+          document.getElementById('ceasarDiv').style.display = 'none';
+          document.getElementById('hexaDiv').style.display = 'none';
+          document.getElementById('rsaDiv').style.display = 'none';
+          document.getElementById('blowfishDiv').style.display = 'none';
+          document.getElementById('aesDiv').style.display = 'none';
+          document.getElementById('eccDiv').style.display = 'block';
+          document.getElementById('twofishDiv').style.display = 'none';
+          document.getElementById('desDiv').style.display = 'none';
+          document.getElementById('diffieDiv').style.display = 'none';
+        }
+        function twofish(){
+          document.getElementById('ceasarDiv').style.display = 'none';
+          document.getElementById('hexaDiv').style.display = 'none';
+          document.getElementById('rsaDiv').style.display = 'none';
+          document.getElementById('blowfishDiv').style.display = 'none';
+          document.getElementById('aesDiv').style.display = 'none';
+          document.getElementById('eccDiv').style.display = 'none';
+          document.getElementById('twofishDiv').style.display = 'block';
+          document.getElementById('desDiv').style.display = 'none';
+          document.getElementById('diffieDiv').style.display = 'none';
+        }
+        function des(){
+          document.getElementById('ceasarDiv').style.display = 'none';
+          document.getElementById('hexaDiv').style.display = 'none';
+          document.getElementById('rsaDiv').style.display = 'none';
+          document.getElementById('blowfishDiv').style.display = 'none';
+          document.getElementById('aesDiv').style.display = 'none';
+          document.getElementById('eccDiv').style.display = 'none';
+          document.getElementById('twofishDiv').style.display = 'none';
+          document.getElementById('desDiv').style.display = 'block';
+          document.getElementById('diffieDiv').style.display = 'none';
+        }
+        function diffie(){
+          document.getElementById('ceasarDiv').style.display = 'none';
+          document.getElementById('hexaDiv').style.display = 'none';
+          document.getElementById('rsaDiv').style.display = 'none';
+          document.getElementById('blowfishDiv').style.display = 'none';
+          document.getElementById('aesDiv').style.display = 'none';
+          document.getElementById('eccDiv').style.display = 'none';
+          document.getElementById('twofishDiv').style.display = 'none';
+          document.getElementById('desDiv').style.display = 'none';
+          document.getElementById('diffieDiv').style.display = 'block';
         }
     </script>
 </body>
