@@ -47,7 +47,6 @@
           <li><button onclick="aes()">AES</button></li>
           <li><button onclick="ecc()">ECC</button></li>
           <li><button onclick="twofish()">TwoFish</button></li>
-          <li><button onclick="des()">DES</button></li>
         </ul>
     </div>
 
@@ -107,14 +106,6 @@
       <button onclick="switchState()">Schimbă</button>
       <input type="button" value="Criptează" name="twofishCriptDecript" id="twofishCriptDecript" onclick="twofishCriptDecript(document.getElementById('twofishInput').value)">
     </div>
-    <div id="desDiv" style="display: none;">
-      <p>DES</p><br>
-      <input type="text" class="status" readonly value="Se criptează">
-      <input type="text" id="desInput" name="desInput">
-      <input type="text" id="desOutput" name="desOutput" readonly><br>
-      <button onclick="switchState()">Schimbă</button>
-      <input type="button" value="Criptează" name="desCriptDecript" id="desCriptDecript" onclick="desCriptDecript(document.getElementById('desInput').value)">
-    </div>
 </div>
 </div>
     <script>
@@ -126,7 +117,6 @@
           document.getElementById('aesDiv').style.display = 'none';
           document.getElementById('eccDiv').style.display = 'none';
           document.getElementById('twofishDiv').style.display = 'none';
-          document.getElementById('desDiv').style.display = 'none';
         }
         function hexa(){
           document.getElementById('ceasarDiv').style.display = 'none';
@@ -136,7 +126,6 @@
           document.getElementById('aesDiv').style.display = 'none';
           document.getElementById('eccDiv').style.display = 'none';
           document.getElementById('twofishDiv').style.display = 'none';
-          document.getElementById('desDiv').style.display = 'none';
         }
         function rsa(){
           document.getElementById('ceasarDiv').style.display = 'none';
@@ -146,7 +135,6 @@
           document.getElementById('aesDiv').style.display = 'none';
           document.getElementById('eccDiv').style.display = 'none';
           document.getElementById('twofishDiv').style.display = 'none';
-          document.getElementById('desDiv').style.display = 'none';
         }
         function blowfish(){
           document.getElementById('ceasarDiv').style.display = 'none';
@@ -156,7 +144,6 @@
           document.getElementById('aesDiv').style.display = 'none';
           document.getElementById('eccDiv').style.display = 'none';
           document.getElementById('twofishDiv').style.display = 'none';
-          document.getElementById('desDiv').style.display = 'none';
         }
         function aes(){
           document.getElementById('ceasarDiv').style.display = 'none';
@@ -166,7 +153,6 @@
           document.getElementById('aesDiv').style.display = 'block';
           document.getElementById('eccDiv').style.display = 'none';
           document.getElementById('twofishDiv').style.display = 'none';
-          document.getElementById('desDiv').style.display = 'none';
         }
         function ecc(){
           document.getElementById('ceasarDiv').style.display = 'none';
@@ -176,7 +162,6 @@
           document.getElementById('aesDiv').style.display = 'none';
           document.getElementById('eccDiv').style.display = 'block';
           document.getElementById('twofishDiv').style.display = 'none';
-          document.getElementById('desDiv').style.display = 'none';
         }
         function twofish(){
           document.getElementById('ceasarDiv').style.display = 'none';
@@ -186,17 +171,6 @@
           document.getElementById('aesDiv').style.display = 'none';
           document.getElementById('eccDiv').style.display = 'none';
           document.getElementById('twofishDiv').style.display = 'block';
-          document.getElementById('desDiv').style.display = 'none';
-        }
-        function des(){
-          document.getElementById('ceasarDiv').style.display = 'none';
-          document.getElementById('hexaDiv').style.display = 'none';
-          document.getElementById('rsaDiv').style.display = 'none';
-          document.getElementById('blowfishDiv').style.display = 'none';
-          document.getElementById('aesDiv').style.display = 'none';
-          document.getElementById('eccDiv').style.display = 'none';
-          document.getElementById('twofishDiv').style.display = 'none';
-          document.getElementById('desDiv').style.display = 'block';
         }
     </script>
 </body>
