@@ -39,6 +39,7 @@
         </button>
         <ul class="dropdown-menu">
           <li><button onclick="ceasar()">Cifrul lui Ceasar</button></li>
+          <li><button onclick="hexa()">Hexa</button></li>
           <li><button onclick="rsa()">RSA</button></li>
           <li><button onclick="blowfish()">Blowfish</button></li>
           <li><button onclick="ecc()">ECC</button></li>
@@ -51,6 +52,13 @@
         <input type="text" id="ceasarOutput" name="ceasarOutput" readonly>
         <button onclick="switchState()">Schimbă</button>
         <input type="button" value="Criptează" name="ceasarCriptDecript" id="ceasarCriptDecript" onclick="ceasarCriptDecript(document.getElementById('ceasarInput').value)">
+    </div>
+    <div id="hexaDiv" style="display: none;">
+      <p>Hexa</p>
+      <input type="text" id="hexaInput" name="hexaInput">
+      <input type="text" id="hexaOutput" name="hexaOutput" readonly>
+      <button onclick="switchState()">Schimbă</button>
+      <input type="button" value="Criptează" name="hexaCriptDecript" id="hexaCriptDecript" onclick="hexaCriptDecript(document.getElementById('hexaInput').value)">
     </div>
     <div id="rsaDiv" style="display: none;">
         <p>RSA, un număr mai mic decât: 3233</p>
@@ -76,48 +84,39 @@
 
     <script>
         function ceasar(){
-            let ceasarDiv = document.getElementById('ceasarDiv');
-            let rsaDiv = document.getElementById('rsaDiv');
-            let blowfishDiv = document.getElementById('blowfishDiv');
-            let eccDiv = document.getElementById('eccDiv');
-
-            ceasarDiv.style.display = 'block';
-            rsaDiv.style.display = 'none';
-            blowfishDiv.style.display = 'none';
-            eccDiv.style.display = 'none';
+            document.getElementById('ceasarDiv').style.display = 'block';
+            document.getElementById('hexaDiv').style.display = 'none';
+            document.getElementById('rsaDiv').style.display = 'none';
+            document.getElementById('blowfishDiv').style.display = 'none';
+            document.getElementById('eccDiv').style.display = 'none';
+        }
+        function hexa(){
+            document.getElementById('ceasarDiv').style.display = 'none';
+            document.getElementById('hexaDiv').style.display = 'block';
+            document.getElementById('rsaDiv').style.display = 'none';
+            document.getElementById('blowfishDiv').style.display = 'none';
+            document.getElementById('eccDiv').style.display = 'none';
         }
         function rsa(){
-            let ceasarDiv = document.getElementById('ceasarDiv');
-            let rsaDiv = document.getElementById('rsaDiv');
-            let blowfishDiv = document.getElementById('blowfishDiv');
-            let eccDiv = document.getElementById('eccDiv');
-
-            ceasarDiv.style.display = 'none';
-            rsaDiv.style.display = 'block';
-            blowfishDiv.style.display = 'none';
-            eccDiv.style.display = 'none';
+            document.getElementById('ceasarDiv').style.display = 'none';
+            document.getElementById('hexaDiv').style.display = 'none';
+            document.getElementById('rsaDiv').style.display = 'block';
+            document.getElementById('blowfishDiv').style.display = 'none';
+            document.getElementById('eccDiv').style.display = 'none';
         }
         function blowfish(){
-            let ceasarDiv = document.getElementById('ceasarDiv');
-            let rsaDiv = document.getElementById('rsaDiv');
-            let blowfishDiv = document.getElementById('blowfishDiv');
-            let eccDiv = document.getElementById('eccDiv');
-            
-            ceasarDiv.style.display = 'none';
-            rsaDiv.style.display = 'none';
-            blowfishDiv.style.display = 'block';
-            eccDiv.style.display = 'none';
+            document.getElementById('ceasarDiv').style.display = 'none';
+            document.getElementById('hexaDiv').style.display = 'none';
+            document.getElementById('rsaDiv').style.display = 'none';
+            document.getElementById('blowfishDiv').style.display = 'block';
+            document.getElementById('eccDiv').style.display = 'none';
         }
         function ecc(){
-            let ceasarDiv = document.getElementById('ceasarDiv');
-            let rsaDiv = document.getElementById('rsaDiv');
-            let blowfishDiv = document.getElementById('blowfishDiv');
-            let eccDiv = document.getElementById('eccDiv');
-            
-            ceasarDiv.style.display = 'none';
-            rsaDiv.style.display = 'none';
-            blowfishDiv.style.display = 'none';
-            eccDiv.style.display = 'block';
+            document.getElementById('ceasarDiv').style.display = 'none';
+            document.getElementById('hexaDiv').style.display = 'none';
+            document.getElementById('rsaDiv').style.display = 'none';
+            document.getElementById('blowfishDiv').style.display = 'none';
+            document.getElementById('eccDiv').style.display = 'block';
         }
     </script>
 </body>

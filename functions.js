@@ -51,6 +51,65 @@ function ceasarCriptDecript(input)
     document.getElementById('ceasarOutput').value = output;
 }
 
+function hexaCriptDecript(input)
+{
+    let output = '';
+    // Funcție care convertește un șir de caractere într-o reprezentare hexazecimală
+    function stringToHex(input) {
+        return input.split('').map(ch => {
+            return ('0' + ch.charCodeAt(0).toString(16)).slice(-2);  // Obține codul ASCII și convertește-l în hex
+        }).join('');
+    }
+
+    // Funcție care convertește un șir de caractere hexazecimal înapoi în reprezentarea sa originală
+    function hexToString(hexStr) {
+        let output = '';
+        for (let i = 0; i < hexStr.length; i += 2) {
+            let part = hexStr.substr(i, 2);
+            output += String.fromCharCode(parseInt(part, 16));
+        }
+        return output;
+    }
+
+    // Funcție de criptare/decriptare folosind XOR
+    function xorEncryptDecrypt(input, key) {
+        return input.split('').map(ch => {
+            return String.fromCharCode(ch.charCodeAt(0) ^ key.charCodeAt(0));  // Aplică XOR cu cheia
+        }).join('');
+    }
+
+    // Funcție de criptare
+    function hexaEncrypt(message, key) {
+        let xorEncrypted = xorEncryptDecrypt(message, key);  // Pasul 1: Criptare XOR
+        return stringToHex(xorEncrypted);  // Pasul 2: Convertire în hexazecimal
+    }
+
+    // Funcție de decriptare
+    function hexaDecrypt(hexMessage, key) {
+        let xorDecrypted = hexToString(hexMessage);  // Pasul 1: Convertire din hexazecimal în șir normal
+        return xorEncryptDecrypt(xorDecrypted, key);  // Pasul 2: Decriptare XOR
+    }
+
+    // Exemplu de utilizare
+    function main() {
+        const message = input;  // Citim mesajul de la utilizator
+        const key = prompt("Introdu cheia (un singur caracter):");  // Citim cheia pentru criptare
+        
+        // Criptăm mesajul
+        const encrypted = hexaEncrypt(message, key);
+        
+        // Decriptăm mesajul
+        const decrypted = hexaDecrypt(encrypted, key);
+
+        if(state === 'cript') output = encrypted;
+        else if(state === 'decript') output = decrypted;
+    }
+
+    // Apelăm funcția principală
+    main();
+    document.getElementById('hexaOutput').value = output;
+}
+
 function rsaCriptDecript(input)
 {
     let output=''
