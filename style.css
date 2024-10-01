@@ -27,6 +27,26 @@ h1,p, h2
 {
     color:powderblue !important;
 }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color:powderblue;
+}
+table{
+    border: 3px solid #516b81;
+}
+th, td {
+    border: 3px solid #516b81 !important;
+    padding: 10px;
+    text-align: left;
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #283845; 
+    color: white;
+    font-weight: bold; 
+}
 .form-box{
     width: 450px;
     margin: 0px 10px;

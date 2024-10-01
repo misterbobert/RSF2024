@@ -32,10 +32,89 @@
         </div>
     </nav>
     <br>
+    
     <div class="card center "style="width: 90%; background-color:#28242c;">
         <div class="card-body"> 
+            <h2>Comparatie Algoritmi de Criptare</h2>
+<table>
+    <tr>
+        <th>Algoritm</th>
+        <th>Viteză</th>
+        <th>Securitate</th>
+        <th>Simetric/Asimetric</th>
+        <th>Tip de input</th>
+    </tr>
+    <tr>
+        <td>Cifrul Caesar</td>
+        <td>Foarte rapid (O(1))</td>
+        <td>Foarte scăzută</td>
+        <td>Simetric</td>
+        <td>Text</td>
+    </tr>
+    <tr>
+        <td>Codificare HEXA</td>
+        <td>Foarte rapid (O(1))</td>
+        <td>Niciuna (Doar codificare)</td>
+        <td>N/A (Codificare)</td>
+        <td>Text/Binar</td>
+    </tr>
+    <tr>
+        <td>RSA (Simplificat)</td>
+        <td>Lent</td>
+        <td>Foarte ridicată</td>
+        <td>Asimetric</td>
+        <td>Numere întregi/Binar</td>
+    </tr>
+    <tr>
+        <td>Blowfish</td>
+        <td>Rapid</td>
+        <td>Ridicată</td>
+        <td>Simetric</td>
+        <td>Binar (Cifru pe blocuri)</td>
+    </tr>
+    <tr>
+        <td>AES</td>
+        <td>Rapid</td>
+        <td>Foarte ridicată</td>
+        <td>Simetric</td>
+        <td>Binar (Cifru pe blocuri)</td>
+    </tr>
+    <tr>
+        <td>ECC</td>
+        <td>Moderat</td>
+        <td>Foarte ridicată</td>
+        <td>Asimetric</td>
+        <td>Numere întregi/Binar</td>
+    </tr>
+    <tr>
+        <td>TwoFish</td>
+        <td>Rapid</td>
+        <td>Ridicată</td>
+        <td>Simetric</td>
+        <td>Binar (Cifru pe blocuri)</td>
+    </tr>
+    <tr>
+        <td>DES</td>
+        <td>Rapid</td>
+        <td>Scăzută (Depășită)</td>
+        <td>Simetric</td>
+        <td>Binar (Cifru pe blocuri)</td>
+    </tr>
+    <tr>
+        <td>Diffie-Hellman</td>
+        <td>Lent</td>
+        <td>Ridicată</td>
+        <td>Asimetric</td>
+        <td>Numere întregi/Binar</td>
+    </tr>
+</table>
+
+</body>
+</html>
+
     <!--Cifrul lui Ceasar-->
     <div style="padding: 20px;">
+        
         <h1>Algoritmul de criptare Caesar Cipher în C++</h1>
 
         <p>Acest cod C++ implementează un simplu cifru Caesar pentru criptare și decriptare a textului.</p>
