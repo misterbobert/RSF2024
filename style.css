@@ -211,6 +211,12 @@ main{
     width: 100%;
     margin-top: 20px;
 }
+.status
+{
+    background-color:#28242c;
+    color:white;
+    border:0px;
+}
 
 .message{
     text-align: center;
@@ -264,7 +270,13 @@ main{
     background-color: #f8f9fa; /* Light background color */
     border-radius: 0.5rem; /* Rounded corners */
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    left: 0;
 }
+.dropdown-toggle {
+    width: 100%; /* Asigură-te că butonul ocupă întreaga lățime a containerului */
+    padding: 0.5rem 1rem; /* Ajustează paddingul */
+}
+
 
 .dropdown-item {
     color: #495057; /* Dark text color */

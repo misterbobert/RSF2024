@@ -13,168 +13,147 @@
 <body style="background: #283845;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">Acasă</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="teorie.html">Teorie</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Criptează</a>
-              </li>
-              <li class="nav-item"></li>
-                <a class="nav-link" href="register.html">Înregistrează-te</a>
-              </li>
-            </ul>
-          </div>
+            <a class="navbar-brand" href="index.html">Acasă</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="teorie.html">Teorie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Criptează</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">Înregistrează-te</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
     <br><br><br>
-    <div class="card center "style="width: 60%; background-color:#28242c;padding:30px">
-      <div class="card-body"> 
-    <div class="dropdown">
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Selectează algoritmul de criptare
-    </button>
-    <ul class="dropdown-menu">
-        <div class="text-center">
-            <li><button class="dropdown-item" onclick="ceasar()">Cifrul lui Ceasar</button></li>
-            <li><button class="dropdown-item" onclick="hexa()">Hexa</button></li>
-            <li><button class="dropdown-item" onclick="rsa()">RSA</button></li>
-            <li><button class="dropdown-item" onclick="blowfish()">Blowfish</button></li>
-            <li><button class="dropdown-item" onclick="aes()">AES</button></li>
-            <li><button class="dropdown-item" onclick="ecc()">ECC</button></li>
-            <li><button class="dropdown-item" onclick="twofish()">TwoFish</button></li>
+    <div class="container">
+        <div class="card mx-auto" style="max-width: 800px; background-color:#28242c; padding:30px;">
+            <div class="card-body"> 
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Selectează algoritmul de criptare
+                    </button>
+                    <ul class="dropdown-menu">
+                        <div class="text-center">
+                            <li><button class="dropdown-item" onclick="ceasar()">Cifrul lui Ceasar</button></li>
+                            <li><button class="dropdown-item" onclick="hexa()">Hexa</button></li>
+                            <li><button class="dropdown-item" onclick="rsa()">RSA</button></li>
+                            <li><button class="dropdown-item" onclick="blowfish()">Blowfish</button></li>
+                            <li><button class="dropdown-item" onclick="aes()">AES</button></li>
+                            <li><button class="dropdown-item" onclick="ecc()">ECC</button></li>
+                            <li><button class="dropdown-item" onclick="twofish()">TwoFish</button></li>
+                        </div>
+                    </ul>
+                </div>
+
+                <!-- Ceasar Section -->
+                <div id="ceasarDiv" style="display: none;">
+                    <p>Ceasar, cheia este: 4</p><br>
+                    <input type="text" class="status" readonly value="Se criptează" >
+                    <input type="text" id="ceasarInput" name="ceasarInput" class="form-control mb-2">
+                    <input type="text" id="ceasarOutput" name="ceasarOutput" readonly class="form-control mb-2"><br>
+                    <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+                    <input type="button" class="btn btn-secondary" value="Criptează" name="ceasarCriptDecript" id="ceasarCriptDecript" onclick="ceasarCriptDecript(document.getElementById('ceasarInput').value)">
+                </div>
+
+                <!-- Hexa Section -->
+                <div id="hexaDiv" style="display: none;">
+                    <p>Hexa</p><br>
+                    <input type="text" class="status" readonly value="Se criptează">
+                    <input type="text" id="hexaInput" name="hexaInput" class="form-control mb-2">
+                    <input type="text" id="hexaOutput" name="hexaOutput" readonly class="form-control mb-2"><br>
+                    <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+                    <input type="button" class="btn btn-secondary" value="Criptează" name="hexaCriptDecript" id="hexaCriptDecript" onclick="hexaCriptDecript(document.getElementById('hexaInput').value)">
+                </div>
+
+                <!-- RSA Section -->
+                <div id="rsaDiv" style="display: none;">
+                    <p>RSA, un număr mai mic decât: 3233</p><br>
+                    <input type="text" class="status" readonly value="Se criptează">
+                    <input type="text" id="rsaInput" name="rsaInput" class="form-control mb-2">
+                    <input type="text" id="rsaOutput" name="rsaOutput" readonly class="form-control mb-2"><br>
+                    <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+                    <input type="button" class="btn btn-secondary" value="Criptează" name="rsaCriptDecript" id="rsaCriptDecript" onclick="rsaCriptDecript(document.getElementById('rsaInput').value)">
+                </div>
+
+                <!-- Blowfish Section -->
+                <div id="blowfishDiv" style="display: none;">
+                    <p>Blowfish, cheia este: [75, 101, 121, 83, 101, 99, 114, 101, 116] (KeySecret scrisă în ASCII)</p><br>
+                    <input type="text" class="status" readonly value="Se criptează">
+                    <input type="text" id="blowfishInput" name="blowfishInput" class="form-control mb-2">
+                    <input type="text" id="blowfishOutput" name="blowfishOutput" readonly class="form-control mb-2"><br>
+                    <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+                    <input type="button" class="btn btn-secondary" value="Criptează" name="blowfishCriptDecript" id="blowfishCriptDecript" onclick="blowfishCriptDecript(JSON.parse(document.getElementById('blowfishInput').value))">
+                </div>
+
+                <!-- AES Section -->
+                <div id="aesDiv" style="display: none;">
+                    <p>AES, mesajul trebuie să aibă 16 caractere</p><br>
+                    <input type="text" class="status" readonly value="Se criptează">
+                    <input type="text" id="aesInput" name="aesInput" class="form-control mb-2">
+                    <input type="text" id="aesOutput" name="aesOutput" readonly class="form-control mb-2"><br>
+                    <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+                    <input type="button" class="btn btn-secondary" value="Criptează" name="aesCriptDecript" id="aesCriptDecript" onclick="aesCriptDecript(document.getElementById('aesInput').value)">
+                </div>
+
+                <!-- ECC Section -->
+                <div id="eccDiv" style="display: none;">
+                    <p>ECC, cheia este: 5</p><br>
+                    <input type="text" class="status" readonly value="Se criptează">
+                    <input type="text" id="eccInput" name="eccInput" class="form-control mb-2">
+                    <input type="text" id="eccOutput" name="eccOutput" readonly class="form-control mb-2"><br>
+                    <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+                    <input type="button" class="btn btn-secondary" value="Criptează" name="eccCriptDecript" id="eccCriptDecript" onclick="eccCriptDecript(document.getElementById('eccInput').value)">
+                </div>
+
+                <!-- Twofish Section -->
+                <div id="twofishDiv" style="display: none;">
+                    <p>Twofish</p><br>
+                    <input type="text" class="status" readonly value="Se criptează">
+                    <input type="text" id="twofishInput" name="twofishInput" class="form-control mb-2">
+                    <input type="text" id="twofishOutput" name="twofishOutput" readonly class="form-control mb-2"><br>
+                    <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
+                    <input type="button" class="btn btn-secondary" value="Criptează" name="twofishCriptDecript" id="twofishCriptDecript" onclick="twofishCriptDecript(document.getElementById('twofishInput').value)">
+                </div>
+            </div>
         </div>
-    </ul>
-</div>
-
-
-    <div id="ceasarDiv" style="display: none;">
-      <p>Ceasar, cheia este: 4</p><br>
-      <input type="text" class="status" readonly value="Se criptează">
-      <input type="text" id="ceasarInput" name="ceasarInput">
-      <input type="text" id="ceasarOutput" name="ceasarOutput" readonly><br>
-      <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
-      <input type="button" class="btn btn-secondary" value="Criptează" name="ceasarCriptDecript" id="ceasarCriptDecript" onclick="ceasarCriptDecript(document.getElementById('ceasarInput').value)">
     </div>
-    <div id="hexaDiv" style="display: none;">
-      <p>Hexa</p><br>
-      <input type="text" class="status" readonly value="Se criptează">
-      <input type="text" id="hexaInput" name="hexaInput">
-      <input type="text" id="hexaOutput" name="hexaOutput" readonly><br>
-      <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
-      <input type="button" class="btn btn-secondary" value="Criptează" name="hexaCriptDecript" id="hexaCriptDecript" onclick="hexaCriptDecript(document.getElementById('hexaInput').value)">
-    </div>
-    <div id="rsaDiv" style="display: none;">
-        <p>RSA, un număr mai mic decât: 3233</p><br>
-        <input type="text" class="status" readonly value="Se criptează">
-        <input type="text" id="rsaInput" name="rsaInput">
-        <input type="text" id="rsaOutput" name="rsaOutput" readonly><br>
-        <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
-        <input type="button" class="btn btn-secondary" value="Criptează" name="rsaCriptDecript" id="rsaCriptDecript" onclick="rsaCriptDecript(document.getElementById('rsaInput').value)">
-    </div>
-    <div id="blowfishDiv" style="display: none;">
-      <p>Blowfish, cheia este: [75, 101, 121, 83, 101, 99, 114, 101, 116] (KeySecret scrisă în ASCII)</p><br>
-      <input type="text" class="status" readonly value="Se criptează">
-      <input type="text" id="blowfishInput" name="blowfishInput">
-      <input type="text" id="blowfishOutput" name="blowfishOutput" readonly><br>
-      <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
-      <input type="button" class="btn btn-secondary" value="Criptează" name="blowfishCriptDecript" id="blowfishCriptDecript" onclick="blowfishCriptDecript(JSON.parse(document.getElementById('blowfishInput').value))">
-    </div>
-    <div id="aesDiv" style="display: none;">
-      <p>AES, mesajul trebuie sa aiba 16 caractere</p><br>
-      <input type="text" class="status" readonly value="Se criptează">
-      <input type="text" id="aesInput" name="aesInput">
-      <input type="text" id="aesOutput" name="aesOutput" readonly><br>
-      <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
-      <input type="button" class="btn btn-secondary" value="Criptează" name="aesCriptDecript" id="aesCriptDecript" onclick="aesCriptDecript(document.getElementById('aesInput').value)">
-    </div>
-    <div id="eccDiv" style="display: none;">
-      <p>ECC, cheia este: 5</p><br>
-      <input type="text" class="status" readonly value="Se criptează">
-      <input type="text" id="eccInput" name="eccInput">
-      <input type="text" id="eccOutput" name="eccOutput" readonly><br>
-      <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
-      <input type="button" class="btn btn-secondary" value="Criptează" name="eccCriptDecript" id="eccCriptDecript" onclick="eccCriptDecript(document.getElementById('eccInput').value)">
-    </div>
-    <div id="twofishDiv" style="display: none;">
-      <p>Twofish</p><br>
-      <input type="text" class="status" readonly value="Se criptează">
-      <input type="text" id="twofishInput" name="twofishInput">
-      <input type="text" id="twofishOutput" name="twofishOutput" readonly><br>
-      <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
-      <input type="button" class="btn btn-secondary" value="Criptează" name="twofishCriptDecript" id="twofishCriptDecript" onclick="twofishCriptDecript(document.getElementById('twofishInput').value)">
-    </div>
-</div>
-</div>
+    
     <script>
-        function ceasar(){
-          document.getElementById('ceasarDiv').style.display = 'block';
-          document.getElementById('hexaDiv').style.display = 'none';
-          document.getElementById('rsaDiv').style.display = 'none';
-          document.getElementById('blowfishDiv').style.display = 'none';
-          document.getElementById('aesDiv').style.display = 'none';
-          document.getElementById('eccDiv').style.display = 'none';
-          document.getElementById('twofishDiv').style.display = 'none';
+        function ceasar() {
+            showDiv('ceasarDiv');
         }
-        function hexa(){
-          document.getElementById('ceasarDiv').style.display = 'none';
-          document.getElementById('hexaDiv').style.display = 'block';
-          document.getElementById('rsaDiv').style.display = 'none';
-          document.getElementById('blowfishDiv').style.display = 'none';
-          document.getElementById('aesDiv').style.display = 'none';
-          document.getElementById('eccDiv').style.display = 'none';
-          document.getElementById('twofishDiv').style.display = 'none';
+        function hexa() {
+            showDiv('hexaDiv');
         }
-        function rsa(){
-          document.getElementById('ceasarDiv').style.display = 'none';
-          document.getElementById('hexaDiv').style.display = 'none';
-          document.getElementById('rsaDiv').style.display = 'block';
-          document.getElementById('blowfishDiv').style.display = 'none';
-          document.getElementById('aesDiv').style.display = 'none';
-          document.getElementById('eccDiv').style.display = 'none';
-          document.getElementById('twofishDiv').style.display = 'none';
+        function rsa() {
+            showDiv('rsaDiv');
         }
-        function blowfish(){
-          document.getElementById('ceasarDiv').style.display = 'none';
-          document.getElementById('hexaDiv').style.display = 'none';
-          document.getElementById('rsaDiv').style.display = 'none';
-          document.getElementById('blowfishDiv').style.display = 'block';
-          document.getElementById('aesDiv').style.display = 'none';
-          document.getElementById('eccDiv').style.display = 'none';
-          document.getElementById('twofishDiv').style.display = 'none';
+        function blowfish() {
+            showDiv('blowfishDiv');
         }
-        function aes(){
-          document.getElementById('ceasarDiv').style.display = 'none';
-          document.getElementById('hexaDiv').style.display = 'none';
-          document.getElementById('rsaDiv').style.display = 'none';
-          document.getElementById('blowfishDiv').style.display = 'none';
-          document.getElementById('aesDiv').style.display = 'block';
-          document.getElementById('eccDiv').style.display = 'none';
-          document.getElementById('twofishDiv').style.display = 'none';
+        function aes() {
+            showDiv('aesDiv');
         }
-        function ecc(){
-          document.getElementById('ceasarDiv').style.display = 'none';
-          document.getElementById('hexaDiv').style.display = 'none';
-          document.getElementById('rsaDiv').style.display = 'none';
-          document.getElementById('blowfishDiv').style.display = 'none';
-          document.getElementById('aesDiv').style.display = 'none';
-          document.getElementById('eccDiv').style.display = 'block';
-          document.getElementById('twofishDiv').style.display = 'none';
+        function ecc() {
+            showDiv('eccDiv');
         }
-        function twofish(){
-          document.getElementById('ceasarDiv').style.display = 'none';
-          document.getElementById('hexaDiv').style.display = 'none';
-          document.getElementById('rsaDiv').style.display = 'none';
-          document.getElementById('blowfishDiv').style.display = 'none';
-          document.getElementById('aesDiv').style.display = 'none';
-          document.getElementById('eccDiv').style.display = 'none';
-          document.getElementById('twofishDiv').style.display = 'block';
+        function twofish() {
+            showDiv('twofishDiv');
+        }
+
+        function showDiv(divId) {
+            const divs = ['ceasarDiv', 'hexaDiv', 'rsaDiv', 'blowfishDiv', 'aesDiv', 'eccDiv', 'twofishDiv'];
+            divs.forEach(id => {
+                document.getElementById(id).style.display = id === divId ? 'block' : 'none';
+            });
         }
     </script>
 </body>
