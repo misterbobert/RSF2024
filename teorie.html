@@ -687,128 +687,221 @@
     <span class="keyword">#include</span> &lt;iostream&gt;
     <span class="keyword">#include</span> &lt;utility&gt; <span class="comment">// pentru std::pair</span>
     <span class="keyword">#include</span> &lt;cmath&gt;   <span class="comment">// pentru funcții matematice de bază</span>
-    
+
     <span class="keyword">using namespace</span> std;
-    
-    <span class="comment">// Definim structura pentru a reprezenta punctele pe curba eliptică</span>
+
+    <span class="comment">// Structură pentru a reprezenta punctele pe curba eliptică</span>
     <span class="keyword">struct</span> Point {
         <span class="keyword">long long</span> x, y;
     };
-    
+
     <span class="comment">// Parametrii curbei eliptice</span>
     <span class="keyword">struct</span> CurveParams {
         <span class="keyword">long long</span> a, b, p; <span class="comment">// a și b sunt coeficienții curbei y^2 = x^3 + ax + b, p este câmpul finit</span>
     };
-    
-    <span class="comment">// Adunarea a două puncte pe o curbă eliptică</span>
-    <span class="keyword">Point</span> <span class="function">addPoints</span>(<span class="keyword">Point</span> P, <span class="keyword">Point</span> Q, <span class="keyword">CurveParams</span> curve) {
+
+    <span class="comment">// Funcție pentru a calcula inversul modular folosind Algoritmul Euclidian Extins</span>
+    <span class="keyword">long long</span> modInverse(<span class="keyword">long long</span> k, <span class="keyword">long long</span> p) {
+        <span class="keyword">long long</span> t = 0, newT = 1;
+        <span class="keyword">long long</span> r = p, newR = k;
+
+        <span class="keyword">while</span> (newR != 0) {
+            <span class="keyword">long long</span> quotient = r / newR;
+
+            <span class="comment">// Actualizăm t și newT fără a folosi tie()</span>
+            <span class="keyword">long long</span> tempT = newT;
+            newT = t - quotient * newT;
+            t = tempT;
+
+            <span class="comment">// Actualizăm r și newR fără tie()</span>
+            <span class="keyword">long long</span> tempR = newR;
+            newR = r - quotient * newR;
+            r = tempR;
+        }
+
+        <span class="keyword">if</span> (r > 1) <span class="keyword">return</span> -1;  <span class="comment">// Invers nu există</span>
+        <span class="keyword">if</span> (t < 0) t += p;     <span class="comment">// Ajustăm valoarea t dacă este negativă</span>
+
+        <span class="keyword">return</span> t;
+    }
+
+    <span class="comment">// Funcția pentru adunarea a două puncte pe o curbă eliptică</span>
+    Point addPoints(Point P, Point Q, CurveParams curve) {
         <span class="keyword">if</span> (P.x == Q.x && P.y == Q.y) {
-            <span class="keyword">long long</span> s = (<span class="number">3</span> * P.x * P.x + curve.a) * <span class="function">modInverse</span>(<span class="number">2</span> * P.y, curve.p) % curve.p;
-            <span class="keyword">long long</span> x_r = (s * s - <span class="number">2</span> * P.x) % curve.p;
+            <span class="keyword">long long</span> s = (3 * P.x * P.x + curve.a) * modInverse(2 * P.y, curve.p) % curve.p;
+            <span class="keyword">long long</span> x_r = (s * s - 2 * P.x) % curve.p;
             <span class="keyword">long long</span> y_r = (s * (P.x - x_r) - P.y) % curve.p;
+
+            <span class="comment">// Ajustăm dacă rezultatul este negativ</span>
+            <span class="keyword">if</span> (x_r < 0) x_r += curve.p;
+            <span class="keyword">if</span> (y_r < 0) y_r += curve.p;
+
             <span class="keyword">return</span> {x_r, y_r};
         } <span class="keyword">else</span> {
-            <span class="keyword">long long</span> s = (Q.y - P.y) * <span class="function">modInverse</span>(Q.x - P.x, curve.p) % curve.p;
+            <span class="keyword">long long</span> s = (Q.y - P.y) * modInverse(Q.x - P.x, curve.p) % curve.p;
             <span class="keyword">long long</span> x_r = (s * s - P.x - Q.x) % curve.p;
             <span class="keyword">long long</span> y_r = (s * (P.x - x_r) - P.y) % curve.p;
+
+            <span class="comment">// Ajustăm dacă rezultatul este negativ</span>
+            <span class="keyword">if</span> (x_r < 0) x_r += curve.p;
+            <span class="keyword">if</span> (y_r < 0) y_r += curve.p;
+
             <span class="keyword">return</span> {x_r, y_r};
         }
     }
-    
+
     <span class="comment">// Funcția pentru înmulțirea unui punct cu un scalar pe o curbă eliptică</span>
-    <span class="keyword">Point</span> <span class="function">scalarMult</span>(<span class="keyword">Point</span> P, <span class="keyword">long long</span> k, <span class="keyword">CurveParams</span> curve) {
-        <span class="keyword">Point</span> result = P;
-        k = k - <span class="number">1</span>; <span class="comment">// Deja avem un punct, deci repetăm k-1 ori adunarea</span>
-        <span class="keyword">while</span> (k > <span class="number">0</span>) {
-            result = <span class="function">addPoints</span>(result, P, curve);
+    Point scalarMult(Point P, <span class="keyword">long long</span> k, CurveParams curve) {
+        Point result = P;
+        k = k - 1; <span class="comment">// Deja avem un punct, deci repetăm k-1 ori adunarea</span>
+        <span class="keyword">while</span> (k > 0) {
+            result = addPoints(result, P, curve);
             k--;
         }
         <span class="keyword">return</span> result;
     }
-    
-    <span class="comment">// Funcție pentru a calcula inversul modular</span>
-    <span class="keyword">long long</span> <span class="function">modInverse</span>(<span class="keyword">long long</span> k, <span class="keyword">long long</span> p) {
-        k = k % p;
-        <span class="keyword">for</span> (<span class="keyword">long long</span> x = <span class="number">1</span>; x &lt; p; x++) {
-            <span class="keyword">if</span> ((k * x) % p == <span class="number">1</span>) {
-                <span class="keyword">return</span> x;
-            }
-        }
-        <span class="keyword">return</span> -1; <span class="comment">// Inversă nu există</span>
-    }
-    
+
     <span class="comment">// Funcția principală</span>
-    <span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">int</span> main() {
         <span class="comment">// Definim o curbă eliptică simplă: y^2 = x^3 + ax + b (mod p)</span>
-        <span class="keyword">CurveParams</span> curve = {<span class="number">2</span>, <span class="number">3</span>, <span class="number">97</span>}; <span class="comment">// Exemplu: y^2 = x^3 + 2x + 3 (mod 97)</span>
-    
+        CurveParams curve = {2, 3, 97}; <span class="comment">// Exemplu: y^2 = x^3 + 2x + 3 (mod 97)</span>
+
         <span class="comment">// Punctul generator G de pe curbă</span>
-        <span class="keyword">Point</span> G = {<span class="number">3</span>, <span class="number">6</span>}; <span class="comment">// Exemplu de punct de pe curbă</span>
-    
+        Point G = {3, 6}; <span class="comment">// Exemplu de punct de pe curbă</span>
+
         <span class="comment">// Cheia privată a destinatarului</span>
-        <span class="keyword">long long</span> privateKey = <span class="number">7</span>; <span class="comment">// Exemplu de cheie privată</span>
-    
+        <span class="keyword">long long</span> privateKey = 7; <span class="comment">// Exemplu de cheie privată</span>
+
         <span class="comment">// Cheia publică a destinatarului: PublicKey = privateKey * G</span>
-        <span class="keyword">Point</span> publicKey = <span class="function">scalarMult</span>(G, privateKey, curve);
-    
+        Point publicKey = scalarMult(G, privateKey, curve);
+
         <span class="comment">// Expeditorul alege o cheie aleatorie k pentru criptare</span>
-        <span class="keyword">long long</span> k = <span class="number">5</span> ; <span class="comment">// Cheie aleatorie</span>
-    
+        <span class="keyword">long long</span> k = 5 ; <span class="comment">// Cheie aleatorie</span>
+
         <span class="comment">// Calcularea punctului R = k * G</span>
-        <span class="keyword">Point</span> R = <span class="function">scalarMult</span>(G, k, curve);
-    
+        Point R = scalarMult(G, k, curve);
+
         <span class="comment">// Mesajul de criptat (reprezentat ca punct pe curba eliptică)</span>
-        <span class="keyword">Point</span> M = {<span class="number">10</span>, <span class="number">22</span>}; <span class="comment">// Exemplu de mesaj ca punct de pe curbă</span>
-    
+        Point M = {10, 22}; <span class="comment">// Exemplu de mesaj ca punct de pe curbă</span>
+
         <span class="comment">// Criptarea mesajului: C1 = R, C2 = M + k * publicKey</span>
-        <span class="keyword">Point</span> C1 = R;
-        <span class="keyword">Point</span> C2 = <span class="function">addPoints</span>(M, <span class="function">scalarMult</span>(publicKey, k, curve), curve);
-    
+        Point C1 = R;
+        Point C2 = addPoints(M, scalarMult(publicKey, k, curve), curve);
+
         <span class="comment">// Afișăm rezultatele criptării</span>
         <span class="function">cout</span> &lt;&lt; <span class="string">"Mesaj criptat:"</span> &lt;&lt; <span class="function">endl</span>;
         <span class="function">cout</span> &lt;&lt; <span class="string">"C1: ("</span> &lt;&lt; C1.x &lt;&lt; <span class="string">", "</span> &lt;&lt; C1.y &lt;&lt; <span class="string">")"</span> &lt;&lt; <span class="function">endl</span>;
         <span class="function">cout</span> &lt;&lt; <span class="string">"C2: ("</span> &lt;&lt; C2.x &lt;&lt; <span class="string">", "</span> &lt;&lt; C2.y &lt;&lt; <span class="string">")"</span> &lt;&lt; <span class="function">endl</span>;
-    
+
         <span class="comment">// Decriptarea mesajului: M = C2 - privateKey * C1</span>
-        <span class="keyword">Point</span> decryptedMessage = <span class="function">addPoints</span>(C2, <span class="function">scalarMult</span>(C1, privateKey, curve), curve);
-    
+        Point decryptedMessage = addPoints(C2, scalarMult(C1, privateKey, curve), curve);
+
         <span class="function">cout</span> &lt;&lt; <span class="string">"Mesaj decriptat: ("</span> &lt;&lt; decryptedMessage.x &lt;&lt; <span class="string">", "</span> &lt;&lt; decryptedMessage.y &lt;&lt; <span class="string">")"</span> &lt;&lt; <span class="function">endl</span>;
-    
-        <span class="keyword">return</span> <span class="number">0</span>;
+
+        <span class="keyword">return</span> 0;
     }
-    </code></pre>
+</code></pre>
+
     </div>
     <h2>Codul Python:</h2>
         <button class="accordion">ECC</button>
     <div class="panel">
         <pre><code>
-    <span class="keyword">from</span> Crypto.PublicKey <span class="keyword">import</span> ECC
-    <span class="keyword">from</span> Crypto.Signature <span class="keyword">import</span> pkcs1_15
-    <span class="keyword">from</span> Crypto.Hash <span class="keyword">import</span> SHA256
+    <span class="keyword"># Definirea unei clase pentru a reprezenta punctele pe curba eliptică</span>
+    <span class="keyword">class</span> Point:
+        <span class="keyword">def</span> <span class="function">__init__</span>(self, x, y):
+            self.x = x
+            self.y = y
 
-    <span class="keyword">def</span> <span class="function">ecc_encrypt</span>(message):
-        <span class="comment"># Funcție pentru criptarea unui mesaj folosind ECC</span>
-        key = ECC.generate(curve=ECC.SECP256K1)
-        signature = pkcs1_15.new(key).sign(SHA256.new(message.encode()))
-        <span class="keyword">return</span> key.export_key(format=<span class="string">'PEM'</span>), signature
+    <span class="keyword"># Parametrii curbei eliptice</span>
+    <span class="keyword">class</span> CurveParams:
+        <span class="keyword">def</span> <span class="function">__init__</span>(self, a, b, p):
+            self.a = a  <span class="comment"># Coeficientul 'a' al curbei</span>
+            self.b = b  <span class="comment"># Coeficientul 'b' al curbei</span>
+            self.p = p  <span class="comment"># Modulo p (câmp finit)</span>
 
-    <span class="keyword">def</span> <span class="function">ecc_decrypt</span>(private_key, message, signature):
-        <span class="comment"># Funcție pentru decriptarea unui mesaj folosind ECC</span>
-        key = ECC.import_key(private_key)
-        try:
-            pkcs1_15.new(key).verify(SHA256.new(message.encode()), signature)
-            <span class="keyword">return</span> <span class="string">"Verificare reușită!"</span>
-        <span class="keyword">except</span> (ValueError, TypeError):
-            <span class="keyword">return</span> <span class="string">"Verificare eșuată!"</span>
+    <span class="keyword"># Funcție pentru a calcula inversul modular folosind Algoritmul Euclidian Extins</span>
+    <span class="keyword">def</span> <span class="function">mod_inverse</span>(k, p):
+        t, new_t = 0, 1
+        r, new_r = p, k
 
-    <span class="keyword"># Exemplu de utilizare</span>
-    message = <span class="string">"Mesaj secret."</span>
-        public_key, signature = ecc_encrypt(message)
-    print(<span class="string">"Semnătură generată:"</span>, signature)
+        <span class="keyword">while</span> new_r != 0:
+            quotient = r // new_r
+            t, new_t = new_t, t - quotient * new_t
+            r, new_r = new_r, r - quotient * new_r
 
-    result = ecc_decrypt(public_key, message, signature)
-    print(<span class="string">"Rezultatul verificării:"</span>, result)
-    </code></pre>
+        <span class="keyword">if</span> r > 1:
+            <span class="keyword">return</span> -1  <span class="comment"># Invers nu există</span>
+        <span class="keyword">if</span> t < 0:
+            t += p
+        <span class="keyword">return</span> t
+
+    <span class="keyword"># Funcție pentru adunarea a două puncte pe o curbă eliptică</span>
+    <span class="keyword">def</span> <span class="function">add_points</span>(P, Q, curve):
+        <span class="keyword">if</span> P.x == Q.x and P.y == Q.y:
+            s = (3 * P.x * P.x + curve.a) * <span class="function">mod_inverse</span>(2 * P.y, curve.p) % curve.p
+            x_r = (s * s - 2 * P.x) % curve.p
+            y_r = (s * (P.x - x_r) - P.y) % curve.p
+        <span class="keyword">else</span>:
+            s = (Q.y - P.y) * <span class="function">mod_inverse</span>(Q.x - P.x, curve.p) % curve.p
+            x_r = (s * s - P.x - Q.x) % curve.p
+            y_r = (s * (P.x - x_r) - P.y) % curve.p
+
+        <span class="keyword">if</span> x_r < 0:
+            x_r += curve.p
+        <span class="keyword">if</span> y_r < 0:
+            y_r += curve.p
+
+        <span class="keyword">return</span> Point(x_r, y_r)
+
+    <span class="keyword"># Funcție pentru înmulțirea unui punct cu un scalar pe o curbă eliptică</span>
+    <span class="keyword">def</span> <span class="function">scalar_mult</span>(P, k, curve):
+        result = P
+        k -= 1
+        <span class="keyword">while</span> k > 0:
+            result = <span class="function">add_points</span>(result, P, curve)
+            k -= 1
+        <span class="keyword">return</span> result
+
+    <span class="keyword"># Funcția principală</span>
+    <span class="keyword">if</span> __name__ == "<span class="string">__main__</span>":
+
+        <span class="comment"># Definim o curbă eliptică simplă: y^2 = x^3 + ax + b (mod p)</span>
+        curve = CurveParams(2, 3, 97) <span class="comment"># Exemplu: y^2 = x^3 + 2x + 3 (mod 97)</span>
+
+        <span class="comment"># Punctul generator G de pe curbă</span>
+        G = Point(3, 6)
+
+        <span class="comment"># Cheia privată a destinatarului</span>
+        private_key = 7 <span class="comment"># Exemplu de cheie privată</span>
+
+        <span class="comment"># Cheia publică a destinatarului: PublicKey = privateKey * G</span>
+        public_key = <span class="function">scalar_mult</span>(G, private_key, curve)
+
+        <span class="comment"># Expeditorul alege o cheie aleatorie k pentru criptare</span>
+        k = 5
+
+        <span class="comment"># Calcularea punctului R = k * G</span>
+        R = <span class="function">scalar_mult</span>(G, k, curve)
+
+        <span class="comment"># Mesajul de criptat (reprezentat ca punct pe curba eliptică)</span>
+        M = Point(10, 22)
+
+        <span class="comment"># Criptarea mesajului: C1 = R, C2 = M + k * publicKey</span>
+        C1 = R
+        C2 = <span class="function">add_points</span>(M, <span class="function">scalar_mult</span>(public_key, k, curve), curve)
+
+        <span class="comment"># Afișăm rezultatele criptării</span>
+        <span class="function">print</span>(<span class="string">"Mesaj criptat:"</span>)
+        <span class="function">print</span>(f<span class="string">"C1: ({C1.x}, {C1.y})"</span>)
+        <span class="function">print</span>(f<span class="string">"C2: ({C2.x}, {C2.y})"</span>)
+
+        <span class="comment"># Decriptarea mesajului: M = C2 - privateKey * C1</span>
+        decrypted_message = <span class="function">add_points</span>(C2, <span class="function">scalar_mult</span>(C1, private_key, curve), curve)
+
+        <span class="function">print</span>(f<span class="string">"Mesaj decriptat: ({decrypted_message.x}, {decrypted_message.y})"</span>)
+</code></pre>
+
 
         </div>
     </div>
