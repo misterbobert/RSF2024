@@ -245,13 +245,8 @@ main{
     .bottom{
         margin-top: 0;
     }
-    .criptareBlock{
-        max-width: 350px;
-        padding: 0;
-        margin: 0;
-    }
     .container{
-        max-width: 100px;
+        max-width: 100wh;
     }
 }.center {
     margin: auto;
