@@ -730,7 +730,7 @@ function twofishCriptDecript(inputOut)
     document.getElementById('twofishOutput').value = output;
 }
 
-function twofishRegister(inputOut)
+export function twofishRegister(inputOut)
 {
     let output='';
     // Funcție pentru a converti un șir de caractere în binar
