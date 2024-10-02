@@ -15,10 +15,9 @@ const firebaseConfig = {
   appId: "1:237606326555:web:7501519efcb6e477a603be",
   measurementId: "G-43LSF4S6FE"
 };
-
+let output='';
 function twofishRegister(inputOut)
 {
-    let output='';
     // Funcție pentru a converti un șir de caractere în binar
     function stringToBinary(input) {
         return input.split('').map(char => {
@@ -72,9 +71,7 @@ function twofishRegister(inputOut)
         encryptedText = simpleEncrypt(plainText, key);
         decryptedText = simpleDecrypt(encryptedText, key);
 
-        console.log(encryptedText);
-
-        return encryptedText;
+        output = encryptedText;
     }
 
     // Executăm funcția principală
@@ -94,7 +91,8 @@ register.addEventListener("click", function(event){
     
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
-    const password = twofishRegister(document.getElementById('password').value);
+    twofishRegister(document.getElementById('password').value);
+    const password = output;
 
     console.log(password);
 
