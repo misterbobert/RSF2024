@@ -94,6 +94,8 @@ register.addEventListener("click", function(event){
     const email = document.getElementById('email').value;
     const password = twofishRegister(document.getElementById('password').value);
 
+    console.log(password);
+
     const form = document.getElementById('form');
 
     if(!(verFields(username, email, password) && verEmail(email)))
