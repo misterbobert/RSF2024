@@ -96,7 +96,7 @@ register.addEventListener("click", function(event){
 
     const form = document.getElementById('form');
 
-    if(!(verFields(username, email, password) && verEmail(email) && verPassword(password)))
+    if(!(verFields(username, email, password) && verEmail(email)))
     {
         return;
     }
@@ -130,20 +130,6 @@ function verEmail(email)
         alert('Email-ul nu este valid');
         return false;
     } 
-    else
-    {
-        return true;
-    }
-}
-
-function verPassword(password)
-{
-    var validRegex = /^(?=.*[a-z])[\w!@#$%^&*?~()-]{6,}$/;
-    if(!password.match(validRegex))
-    {
-        alert('Parola nu este valida');
-        return false;
-    }
     else
     {
         return true;
