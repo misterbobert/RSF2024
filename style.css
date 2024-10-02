@@ -9,9 +9,9 @@ body{
     background: #e4e9f7;
 }
 .criptareBlock{
-    max-width: 800px; 
+    max-width: 100wh; 
     background-color:#28242c !important; 
-    padding:30px;
+    padding:20px;
 }
 .container{
     display: flex;
