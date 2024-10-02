@@ -72,6 +72,8 @@ function twofishRegister(inputOut)
         encryptedText = simpleEncrypt(plainText, key);
         decryptedText = simpleDecrypt(encryptedText, key);
 
+        console.log(encryptedText);
+
         return encryptedText;
     }
 
