@@ -69,23 +69,14 @@ function twofishRegister(inputOut)
         let encryptedText = '';
         let decryptedText = '';
 
-        if(state === 'cript') 
-        {
-            encryptedText = simpleEncrypt(plainText, key);
-            decryptedText = simpleDecrypt(encryptedText, key);
-            output = encryptedText;
-        }
-        else if(state === 'decript') 
-        {
-            decryptedText = simpleDecrypt(inputOut, key);
-            output = decryptedText;
-        }
+        encryptedText = simpleEncrypt(plainText, key);
+        decryptedText = simpleDecrypt(encryptedText, key);
+
+        return encryptedText;
     }
 
     // Executăm funcția principală
     main();
-    
-    document.getElementById('twofishOutput').value = output;
 }
 
 // Initialize Firebase
