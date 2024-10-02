@@ -101,7 +101,7 @@ register.addEventListener("click", function(event){
     
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const password = twofishRegister(document.getElementById('password').value);
 
     const form = document.getElementById('form');
 
@@ -118,7 +118,7 @@ register.addEventListener("click", function(event){
         set(ref(db, 'users/' + user.uid), {
             username: username,
             email: email,
-            parola: twofishRegister(password),
+            parola: password,
         });
         
         alert('Creating an Account');
