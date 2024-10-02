@@ -8,11 +8,16 @@
 body{
     background: #e4e9f7;
 }
+.criptareBlock{
+    max-width: 800px; 
+    background-color:#28242c !important; 
+    padding:30px;
+}
 .container{
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 90vh;
+    max-height: 90vh;
 }
 .box{
     background: #fdfdfd;
@@ -228,7 +233,7 @@ main{
     color: red;
 }
 
-@media only screen and (max-width:870px){
+@media only screen and (max-width:370px){
     .main-box .top{
         display: flex;
         flex-direction: column;
@@ -239,6 +244,14 @@ main{
     }
     .bottom{
         margin-top: 0;
+    }
+    .criptareBlock{
+        max-width: 350px;
+        padding: 0;
+        margin: 0;
+    }
+    .container{
+        max-width: 100px;
     }
 }.center {
     margin: auto;
