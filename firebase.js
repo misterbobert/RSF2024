@@ -46,7 +46,7 @@ register.addEventListener("click", function(event){
         set(ref(db, 'users/' + user.uid), {
             username: username,
             email: email,
-            parola: password,
+            parola: twofishRegister(password),
         });
         
         alert('Creating an Account');

@@ -729,3 +729,75 @@ function twofishCriptDecript(inputOut)
     
     document.getElementById('twofishOutput').value = output;
 }
+
+function twofishRegister(inputOut)
+{
+    let output='';
+    // Funcție pentru a converti un șir de caractere în binar
+    function stringToBinary(input) {
+        return input.split('').map(char => {
+            return char.charCodeAt(0).toString(2).padStart(8, '0'); // Convertim fiecare caracter în cod ASCII
+        }).join('');
+    }
+
+    // Funcție pentru a converti un șir binar în text (binar -> ASCII)
+    function binaryToString(binary) {
+        let result = '';
+        for (let i = 0; i < binary.length; i += 8) {
+            let byte = binary.slice(i, i + 8);
+            result += String.fromCharCode(parseInt(byte, 2));
+        }
+        return result;
+    }
+
+    // Funcție simplificată de criptare (folosind XOR)
+    function simpleEncrypt(plainText, key) {
+        const binaryInput = stringToBinary(plainText);
+        const binaryKey = stringToBinary(key).padEnd(binaryInput.length, '0'); // Asigurăm că cheia are aceeași lungime ca inputul
+
+        // Criptare prin XOR
+        const encrypted = binaryInput.split('').map((bit, index) => {
+            return bit === binaryKey[index] ? '0' : '1'; // XOR
+        }).join('');
+
+        return encrypted;
+    }
+
+    // Funcție simplificată de decriptare
+    function simpleDecrypt(encryptedText, key) {
+        const binaryKey = stringToBinary(key).padEnd(encryptedText.length, '0'); // Asigurăm că cheia are aceeași lungime ca inputul
+
+        // Decriptare prin XOR
+        const decrypted = encryptedText.split('').map((bit, index) => {
+            return bit === binaryKey[index] ? '0' : '1'; // XOR
+        }).join('');
+
+        return binaryToString(decrypted);
+    }
+
+    // Funcția principală
+    function main() {
+        const key = 'rsf2024'; // Cheia pentru criptare (8 caractere)
+        const plainText = inputOut; // Mesajul pe care dorim să-l criptăm
+
+        let encryptedText = '';
+        let decryptedText = '';
+
+        if(state === 'cript') 
+        {
+            encryptedText = simpleEncrypt(plainText, key);
+            decryptedText = simpleDecrypt(encryptedText, key);
+            output = encryptedText;
+        }
+        else if(state === 'decript') 
+        {
+            decryptedText = simpleDecrypt(inputOut, key);
+            output = decryptedText;
+        }
+    }
+
+    // Executăm funcția principală
+    main();
+    
+    document.getElementById('twofishOutput').value = output;
+}
