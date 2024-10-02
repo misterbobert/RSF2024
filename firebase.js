@@ -1,8 +1,7 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -32,6 +31,8 @@ register.addEventListener("click", function(event){
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
+    const form = document.getElementById('form');
+
     if(!(verFields(username, email, password) && verEmail(email) && verPassword(password)))
     {
         return;
@@ -45,8 +46,7 @@ register.addEventListener("click", function(event){
         set(ref(db, 'users/' + user.uid), {
             username: username,
             email: email,
-            corecte: corecte,
-            gresite: gresite
+            parola: password,
         });
         
         alert('Creating an Account');
@@ -89,17 +89,17 @@ function verPassword(password)
 
 function verFields(username, email, password)
 {
-    if(username == null) 
+    if(username === null) 
     {
         alert('Numele de utilizator lipseste');
         return false;
     }
-    if(email == null)
+    if(email === null)
     {
         alert('Email-ul lipseste');
         return false;
     }
-    if(password == null)
+    if(password === null)
     {
         alert('Parola lipseste');
         return false;
