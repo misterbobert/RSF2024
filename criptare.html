@@ -90,7 +90,7 @@
                     <input type="text" id="blowfishInput" name="blowfishInput" class="form-control mb-2">
                     <input type="text" id="blowfishOutput" name="blowfishOutput" readonly class="form-control mb-2"><br>
                     <button onclick="switchState()" class="btn btn-secondary">Schimbă</button>
-                    <input type="button" class="btn btn-secondary" value="Criptează" name="blowfishCriptDecript" id="blowfishCriptDecript" onclick="blowfishCriptDecript(JSON.parse(document.getElementById('blowfishInput').value))">
+                    <input type="button" class="btn btn-secondary" value="Criptează" name="blowfishCriptDecript" id="blowfishCriptDecript" onclick="blowfishCriptDecript(document.getElementById('blowfishInput').value)">
                 </div>
 
                 <!-- AES Section -->

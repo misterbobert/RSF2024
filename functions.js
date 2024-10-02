@@ -382,7 +382,9 @@ function blowfishCriptDecript(input)
         BlowfishKeyExpansion(key);
 
         // Exemplu de bloc de 8 octeți (64 de biți) de criptat
-        let block = input; // "TestBloc" în ASCII
+        let block = ''; // "TestBloc" în ASCII
+        if(state === 'cript') block = JSON.parse(input);
+        else if(state === 'decript') block = JSON.parse(input);
 
         // Criptarea blocului
         EncryptBlock(block);
@@ -469,6 +471,36 @@ function aesCriptDecript(inputOut)
         return new TextDecoder().decode(decrypted);
     }
 
+    async function decripteazaAES(encryptedData, secretKey, iv) {
+        try {
+            // Decodăm cheia dintr-un format text simplu
+            const keyMaterial = await window.crypto.subtle.importKey(
+                "raw",
+                new TextEncoder().encode(secretKey),
+                "AES-GCM",
+                false,
+                ["decrypt"]
+            );
+    
+            // Decriptăm datele folosind SubtleCrypto
+            const decrypted = await window.crypto.subtle.decrypt(
+                {
+                    name: "AES-GCM",
+                    iv: iv, // IV-ul trebuie să fie același cu cel folosit la criptare
+                },
+                keyMaterial,
+                encryptedData // Datele criptate (ca ArrayBuffer)
+            );
+    
+            // Convertim ArrayBuffer-ul rezultat în text simplu
+            const decryptedText = new TextDecoder().decode(decrypted);
+            return decryptedText;
+        } catch (err) {
+            console.error("Decriptarea a eșuat:", err);
+            return null;
+        }
+    }
+
     // Funcție principală
     async function main() {
         // Cheia trebuie să fie exact 16 octeți pentru AES-128
@@ -481,6 +513,7 @@ function aesCriptDecript(inputOut)
 
         // Input-ul trebuie să fie de 16 bytes
         const input = strToUint8Array(inputOut); // 16 bytes
+        const iv = window.crypto.getRandomValues(new Uint8Array(16)); 
 
         // Criptare
         let encryptedOutput = '';
@@ -497,7 +530,7 @@ function aesCriptDecript(inputOut)
         }
         else if(state === 'decript') 
         {
-            decryptedOutput = await aesDecrypt(inputOut, key);
+            decryptedOutput = await decripteazaAES(strToUint8Array(inputOut), key, iv);
             document.getElementById('aesOutput').value = decryptedOutput;
         }
     }
